@@ -4,7 +4,7 @@ import JobPositionList from "../pages/job/JobPosition/JobPositionList";
 import Sidebar from "./Sidebar";
 
 export default function Dashboard() {
-  return ( 
+  return (  
     <div>
       <Grid>
         <Grid.Row>

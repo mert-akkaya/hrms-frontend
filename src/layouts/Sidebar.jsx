@@ -6,7 +6,7 @@ export default function Sidebar() {
     <div>
        <Menu inverted icon="labeled" vertical>
         <Menu.Item
-          name="bullhorn"
+          name="bullhorn" 
         > 
           <Icon name="bullhorn" />
           Job Position

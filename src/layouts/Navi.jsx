@@ -20,7 +20,7 @@ export default function Navi() {
                 <Dropdown.Item>Russian</Dropdown.Item>
                 <Dropdown.Item>Spanish</Dropdown.Item>
               </Dropdown.Menu>
-            </Dropdown> */} 
+            </Dropdown> */}  
 
             <Menu.Item>
               <Button.Group>

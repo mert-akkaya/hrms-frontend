@@ -15,7 +15,7 @@ export default function JobPositionList() {
         <Card.Header>(jobName)</Card.Header>
         {/* <Card.Meta>Friends of Elliot</Card.Meta> */}
         <Card.Description>
-         (description) 
+         (description)  
         </Card.Description> 
       </Card.Content>
       <Card.Content extra>
