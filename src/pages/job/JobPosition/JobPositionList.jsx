@@ -16,7 +16,7 @@ export default function JobPositionList() {
         {/* <Card.Meta>Friends of Elliot</Card.Meta> */}
         <Card.Description>
          (description) 
-        </Card.Description>
+        </Card.Description> 
       </Card.Content>
       <Card.Content extra>
         <div className='ui two buttons'>
