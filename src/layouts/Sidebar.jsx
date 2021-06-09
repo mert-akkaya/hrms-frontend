@@ -9,14 +9,14 @@ export default function Sidebar() {
           name="bullhorn" 
         > 
           <Icon name="bullhorn" />
-          Job Position
+          Job Advertisement
         </Menu.Item>
 
         <Menu.Item
           name="user"
         >
           <Icon name="user" />
-          Jobseeker
+          Candidate
         </Menu.Item>
 
         <Menu.Item
