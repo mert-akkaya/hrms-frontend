@@ -34,7 +34,7 @@ export default function JobAdvertisementDetail() {
                     {jobAdvertisement.description}
                     <br />
                     <strong>Open position count : </strong>
-                    {jobAdvertisement.countOfOpenPosition}
+                    {jobAdvertisement.countOfOpenPosition} 
                     <br />
                     <strong>Min Salary : </strong> {jobAdvertisement.minSalary}
                     $ <br />

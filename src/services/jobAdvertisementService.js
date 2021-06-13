@@ -11,6 +11,6 @@ export default class JobAdvertisementService{
     }
 
     addJobAdvertisement(jobAdvertisement){
-        return axios.post("http://localhost:8080/api/jobadvertisements/add",jobAdvertisement);
+        return axios.post("http://localhost:8080/api/jobadvertisements/add",jobAdvertisement); 
     }
 }

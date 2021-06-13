@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import React, { useEffect, useState } from "react";
 import JobAdvertisementService from "../../../services/jobAdvertisementService";
-import { Dropdown, Form,Select} from "semantic-ui-react";
+import { Dropdown, Form,Message,Select} from "semantic-ui-react";
 import JobPositionService from "../../../services/jobPositionService";
 import CityService from "../../../services/cityService";
 
@@ -17,16 +17,16 @@ export default function JobAdvertisementAdd() {
     cityService.getCities().then((result) => setCities(result.data.data)); 
   },[]);
 
-  const { values, handleSubmit, handleChange, errors, touched } = useFormik({
+  const formik = useFormik({
     initialValues: {
       description: "",
       countOfOpenPosition: "",
       applicationDeadline: "",
       minSalary: "",
       maxSalary: "",
-      employerId: "",
+      employerId:"",
       cityId: "",
-      jobTitleId: "",
+      jobTitleId:"",
     },
     validationSchema: Yup.object({
       description: Yup.string().required("Description is not null"),
@@ -39,54 +39,98 @@ export default function JobAdvertisementAdd() {
       jobTitleId: Yup.string().required("Job position is not null"),
     }),
     onSubmit: (values) => {
+      let jobAdvertisementModel = {
+        jobTitle:{
+          id: values.jobTitleId
+        },
+        employer:{
+          id: 2
+        },
+        city:{
+          id: values.cityId
+        },
+        description : values.description,
+        countOfOpenPosition : values.countOfOpenPosition,
+        applicationDeadline : values.applicationDeadline,
+        minSalary: values.minSalary,
+        maxSalary: values.maxSalary,
+      }
+
       let jobAdvertisementService = new JobAdvertisementService();
-      jobAdvertisementService.addJobAdvertisement(values);
+      jobAdvertisementService.addJobAdvertisement(jobAdvertisementModel).then((result)=>console.log(result));
+      alert("Success")
     },
   });
 
-   const jobTitleDropdown=jobTitles.map((jobTitle)=>({
-     value : jobTitle.id,
-     text : jobTitle.title,
-  }))
-  const cityDropdown=cities.map((city)=>({
-    value : city.id,
-    text : city.name,
- }))
+   const handleChangeSemantic= (field,value)=>{
+     formik.setFieldValue(field,value);
+   }
+
+   const jobTitleOptions = jobTitles.map((jobTitle,index)=>({
+     key:index,
+     text:jobTitle.title,
+     value:jobTitle.id
+   }))
+
+   const citiesOptions = cities.map((city,index)=>({
+     key:index,
+     text:city.name,
+     value:city.id
+   }))
  
   return (
     <div>
-      <Form onSubmit={handleSubmit}>
-            {/* <Dropdown value={values.jobTitleId} placeholder="Select Position" selection options={jobTitleDropdown}/> */}
-            {/* <Select placeholder='Select Position' options={jobTitleDropdown} value={values.minSalary} /> */}
-
-          
-        <p>Job : {values.jobTitleId}</p>
+      <Form>
      
-            <Dropdown value={values.cityId} placeholder="Select City" selection options={cityDropdown}/>
-
-        <p>Job : {values.cityId}</p>
+      <Form.Group widths={2}>
+          <Form.Dropdown required label="Job Positions" placeholder="Select Job" selection search value={formik.values.jobTitleId.id} options={jobTitleOptions} onChange={(event,data)=>{
+            handleChangeSemantic("jobTitleId",data.value)
+          }}/>
+          {formik.errors.jobTitleId && formik.touched.jobTitleId ? (
+                    <Message color="red">{formik.errors.jobTitleId}</Message>
+              ) : null}
+          <Form.Dropdown required label="Cities" placeholder="Select City" selection search value={formik.values.cityId} options={citiesOptions} onChange={(event,data)=>{
+            handleChangeSemantic("cityId",data.value)
+          }}/>
+          {formik.errors.cityId && formik.touched.cityId ? (
+                    <Message color="red">{formik.errors.cityId}</Message>
+              ) : null}
+        </Form.Group>
+      <Form.Group widths={3}>
+        <Form.Input  label=" Minimum Salary" name="minSalary" placeholder='Minimum Salary' value={formik.values.minSalary} onChange={formik.handleChange} />
+       {
+       formik.errors.minSalary && formik.touched.minSalary ?(
+            <Message color="red">{formik.errors.minSalary}</Message> 
+       ):null
+       
+       }
+        <Form.Input  label=" Maximum Salary"  name="maxSalary" placeholder='Maximum Salary' value={formik.values.maxSalary} onChange={formik.handleChange} />
+       {
+       formik.errors.maxSalary && formik.touched.maxSalary ?(
+           <Message color="red">{formik.errors.maxSalary}</Message>
+       ):null
+       
+       }
+       <Form.Input required label="Open position count" name="countOfOpenPosition" placeholder="Open position count" value={formik.values.countOfOpenPosition} onChange={formik.handleChange}/>
+       {formik.errors.countOfOpenPosition && formik.touched.countOfOpenPosition ? (
+                    <Message color="red">{formik.errors.countOfOpenPosition}</Message>
+              ) : null}
+        </Form.Group>
+        <Form.Input required width={6}  label="Application Deadline" name="applicationDeadline" placeholder="Application deadline" value={formik.values.applicationDeadline} onChange={formik.handleChange} />
+        {formik.errors.applicationDeadline && formik.touched.applicationDeadline ? (
+                    <Message color="red">{formik.errors.applicationDeadline}</Message>
+              ) : null}
+        <Form.Group inline>
+          
+        </Form.Group>
+        <Form.TextArea label='Description' required name="description" placeholder="Description" value={formik.values.description} onChange={formik.handleChange}/>
+          {formik.errors.description && formik.touched.description ? (
+                    <Message color="red">{formik.errors.description}</Message>
+              ) : null}
+        <Form.Button onClick={formik.handleSubmit}  type="submit" positive>Submit</Form.Button>
       
-        <label>Minimum Salary</label>
-               <input name="minSalary" placeholder='Minimum Salary' value={values.minSalary} onChange={handleChange} />
-                 {
-                     errors.minSalary && touched.minSalary &&
-                     <div>{errors.minSalary}</div>
-                }
-    
-        <p>Job : {values.minSalary}</p>
- 
-          <label>Description</label>
-          <input
-            name="description"
-            placeholder="Description"
-            value={values.description}
-            onChange={handleChange}
-          />
-          {errors.description && touched.description ? (
-            <div>{errors.description}</div>
-          ) : null}
-  
       </Form>
     </div>
+
   );
 }
