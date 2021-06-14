@@ -8,12 +8,15 @@ export default function JobAdvertisementDetail() {
 
   const [jobAdvertisement, setJobAdvertisement] = useState({});
 
+ 
   useEffect(() => {
     let jobAdvertisementService = new JobAdvertisementService();
     jobAdvertisementService
       .getJobAdvertisementById(id)
       .then((result) => setJobAdvertisement(result.data.data));
   }, []);
+
+ 
   return (
     <div>
       <h2>{jobAdvertisement.jobTitle?.title}</h2>
@@ -42,7 +45,11 @@ export default function JobAdvertisementDetail() {
                     $ <br />
                     <strong>City : </strong> {jobAdvertisement.city?.name}
                     <br />
-                    <strong>Application Deadline :</strong>{" "}
+                    <strong>Employment type : </strong> {jobAdvertisement.employmentType?.name}
+                    <br />
+                    <strong>Work type : </strong>{jobAdvertisement.workType?.name}
+                    <br />
+                    <strong>Application Deadline :</strong>
                     {jobAdvertisement.applicationDeadline}<br/>
                     <Button positive style={{float:"right"}} >Apply</Button> 
                   </Card.Description>

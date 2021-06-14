@@ -1,20 +1,31 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import JobAdvertisementService from "../../../services/jobAdvertisementService";
-import { Dropdown, Form,Message,Select} from "semantic-ui-react";
+import { Dropdown, Form,Message,Checkbox,Radio} from "semantic-ui-react";
 import JobPositionService from "../../../services/jobPositionService";
 import CityService from "../../../services/cityService";
+import EmploymentTypeService from "../../../services/employmentTypeService";
+import WorkTypeService from "../../../services/workTypeService";
+import { boolean } from "yup";
 
 export default function JobAdvertisementAdd() {
   const [jobTitles, setJobTitles] = useState([]);
-  const [cities, setCities] = useState([])
+  const [cities, setCities] = useState([]);
+  const [employmentTypes, setEmploymentTypes] = useState([]);
+  const [workTypes, setWorkTypes] = useState([]);
 
+  const history = useHistory();
   useEffect(() => {
     let jobPositionService = new JobPositionService();
     jobPositionService.getJobPositions().then((result) => setJobTitles(result.data.data));
     let cityService = new CityService()
     cityService.getCities().then((result) => setCities(result.data.data)); 
+    let employmentTypeService = new EmploymentTypeService();
+    employmentTypeService.getEmploymentTypes().then(result =>setEmploymentTypes(result.data.data))
+    let workTypeService = new WorkTypeService();
+    workTypeService.getWorkTypes().then((result)=>setWorkTypes(result.data.data))
   },[]);
 
   const formik = useFormik({
@@ -27,6 +38,8 @@ export default function JobAdvertisementAdd() {
       employerId:"",
       cityId: "",
       jobTitleId:"",
+      employmentTypeId:"",
+      workTypeId:"",
     },
     validationSchema: Yup.object({
       description: Yup.string().required("Description is not null"),
@@ -37,6 +50,8 @@ export default function JobAdvertisementAdd() {
       employerId: Yup.number(),
       cityId: Yup.number().required("City is not null"),
       jobTitleId: Yup.string().required("Job position is not null"),
+      employmentTypeId: Yup.number().required("Employment type is not null"),
+      workTypeId: Yup.number().required("Work type is not null"),
     }),
     onSubmit: (values) => {
       let jobAdvertisementModel = {
@@ -49,16 +64,23 @@ export default function JobAdvertisementAdd() {
         city:{
           id: values.cityId
         },
+        employmentType:{
+          id: values.employmentTypeId
+        },
+        workType:{
+          id:values.workTypeId
+        },
         description : values.description,
         countOfOpenPosition : values.countOfOpenPosition,
         applicationDeadline : values.applicationDeadline,
         minSalary: values.minSalary,
         maxSalary: values.maxSalary,
-      }
+      };
 
       let jobAdvertisementService = new JobAdvertisementService();
       jobAdvertisementService.addJobAdvertisement(jobAdvertisementModel).then((result)=>console.log(result));
       alert("Success")
+      history.push("/jobAdvertisements")
     },
   });
 
@@ -77,13 +99,25 @@ export default function JobAdvertisementAdd() {
      text:city.name,
      value:city.id
    }))
+
+   const employmentTypeOptions = employmentTypes.map((employmentType,index)=>({
+     key:index,
+     text: employmentType.name,
+     value: employmentType.id
+   }))
+
+   const workTypeOption = workTypes.map((workType,index)=>({
+     key: index,
+     text: workType.name,
+     value: workType.id
+   }))
  
   return (
     <div>
       <Form>
      
       <Form.Group widths={2}>
-          <Form.Dropdown required label="Job Positions" placeholder="Select Job" selection search value={formik.values.jobTitleId.id} options={jobTitleOptions} onChange={(event,data)=>{
+          <Form.Dropdown required label="Job Positions" placeholder="Select Job" selection search value={formik.values.jobTitleId} options={jobTitleOptions} onChange={(event,data)=>{
             handleChangeSemantic("jobTitleId",data.value)
           }}/>
           {formik.errors.jobTitleId && formik.touched.jobTitleId ? (
@@ -116,13 +150,30 @@ export default function JobAdvertisementAdd() {
                     <Message color="red">{formik.errors.countOfOpenPosition}</Message>
               ) : null}
         </Form.Group>
-        <Form.Input required width={6}  label="Application Deadline" name="applicationDeadline" placeholder="Application deadline" value={formik.values.applicationDeadline} onChange={formik.handleChange} />
-        {formik.errors.applicationDeadline && formik.touched.applicationDeadline ? (
+        <Form.Group >
+            <Form.Input required width={6}  label="Application Deadline" name="applicationDeadline" placeholder="Application deadline" value={formik.values.applicationDeadline} onChange={formik.handleChange} />
+                {formik.errors.applicationDeadline && formik.touched.applicationDeadline ? (
                     <Message color="red">{formik.errors.applicationDeadline}</Message>
+                  ) : null}
+            <Form.Field style={{marginLeft:"30px"}} >
+            <Form.Dropdown required label="Employment Type" placeholder="Select employment type" selection search value={formik.values.employmentTypeId} options={employmentTypeOptions} onChange={(event,data)=>{
+            handleChangeSemantic("employmentTypeId",data.value)
+          }}/>
+          {formik.errors.employmentTypeId && formik.touched.employmentTypeId ? (
+                    <Message color="red">{formik.errors.employmentTypeId}</Message>
               ) : null}
-        <Form.Group inline>
-          
+            </Form.Field>
+            <Form.Field style={{marginLeft:"150px"}} >
+              <Form.Dropdown required label="Work Type" placeholder="Select work type" selection search value={formik.values.workTypeId} options={workTypeOption} onChange={(event,data)=>{
+            handleChangeSemantic("workTypeId",data.value)
+          }}/>
+          {formik.errors.workTypeId && formik.touched.workTypeId ? (
+                    <Message color="red">{formik.errors.workTypeId}</Message>
+              ) : null}
+            </Form.Field>
+            
         </Form.Group>
+
         <Form.TextArea label='Description' required name="description" placeholder="Description" value={formik.values.description} onChange={formik.handleChange}/>
           {formik.errors.description && formik.touched.description ? (
                     <Message color="red">{formik.errors.description}</Message>
