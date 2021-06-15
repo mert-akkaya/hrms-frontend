@@ -8,16 +8,17 @@ import CandidateList from "../pages/user/Candidate/CandidateList";
 import EmployerList from "../pages/user/Employer/EmployerList";
 import JobAdvertisementDetail from "../pages/job/JobAdvertisement/JobAdvertisementDetail";
 import JobAdvertisementAdd from "../pages/job/JobAdvertisement/JobAdvertisementAdd";
+import jobAdvertisementConfirm from "../pages/job/JobAdvertisement/JobAdvertisementConfirm";
 
 export default function Dashboard() {
   return (
     <div>
       <Grid>
         <Grid.Row>
-          <Grid.Column width={3}>
+          <Grid.Column width={2}>
             <Sidebar />
           </Grid.Column>
-          <Grid.Column width={13}>
+          <Grid.Column width={14}>
             <Route exact path="/" component={JobAdvertisementList}/>
             <Route exact path="/jobAdvertisements" component={JobAdvertisementList}/>
             <Route exact path="/candidates" component={CandidateList}/>
@@ -25,6 +26,7 @@ export default function Dashboard() {
             <Route exact path="/jobPositions" component={JobPositionList}/>
             <Route exact path="/jobAdvertisementDetail/:id" component={JobAdvertisementDetail}/>
             <Route exact path="/jobAdvertisementAdd" component={JobAdvertisementAdd}/>
+            <Route exact path="/jobAdvertisementConfirm" component={jobAdvertisementConfirm}/>
           </Grid.Column>
         </Grid.Row>
       </Grid>
