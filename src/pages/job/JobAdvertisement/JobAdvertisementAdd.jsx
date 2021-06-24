@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import JobAdvertisementService from "../../../services/jobAdvertisementService";
-import { Dropdown, Form,Message,Checkbox,Radio} from "semantic-ui-react";
+import {  Form,Message} from "semantic-ui-react";
 import JobPositionService from "../../../services/jobPositionService";
 import CityService from "../../../services/cityService";
 import EmploymentTypeService from "../../../services/employmentTypeService";

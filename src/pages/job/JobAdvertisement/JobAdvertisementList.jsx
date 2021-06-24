@@ -5,6 +5,8 @@ import JobAdvertisementService from "../../../services/jobAdvertisementService";
 
 export default function JobAdvertisementList() {
   const [jobAdvertisements, setJobAdvertisements] = useState([]);
+  const [currentJob, setCurrentJob] = useState({});
+
 
   useEffect(() => {
     let jobAdvertisementService = new JobAdvertisementService();
@@ -13,11 +15,22 @@ export default function JobAdvertisementList() {
       .then((result) => setJobAdvertisements(result.data.data));
   }, []);
 
+  let setCurrentJobAdvertisement = (jobAdvertisement)=>{
+    setCurrentJob(jobAdvertisement);
+  }
+  let getCurrentJobClass = (jobAdvertisement)=>{
+    if (jobAdvertisement==currentJob) {
+      return "ui link card "
+    }else{
+      return ""
+    }
+  }
+ 
   return (
     <div>
-      {jobAdvertisements.map((jobAdvertisement) => (
-        <Card.Group  as={NavLink} to={`/jobAdvertisementDetail/${jobAdvertisement.id}`} key={jobAdvertisement.id}>
-          <Card fluid>
+      {jobAdvertisements.map((jobAdvertisement) => ( 
+        <Card.Group onMouseEnter={(e)=>setCurrentJobAdvertisement(jobAdvertisement)}  as={NavLink} to={`/jobAdvertisementDetail/${jobAdvertisement.id}`} key={jobAdvertisement.id}>
+          <Card className={getCurrentJobClass(jobAdvertisement)} fluid>
             <Card.Content>
               <Card.Header textAlign="center">
                 {jobAdvertisement.jobTitle.title}

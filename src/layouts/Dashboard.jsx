@@ -9,6 +9,9 @@ import EmployerList from "../pages/user/Employer/EmployerList";
 import JobAdvertisementDetail from "../pages/job/JobAdvertisement/JobAdvertisementDetail";
 import JobAdvertisementAdd from "../pages/job/JobAdvertisement/JobAdvertisementAdd";
 import jobAdvertisementConfirm from "../pages/job/JobAdvertisement/JobAdvertisementConfirm";
+import CurriculumVitaeList from "../pages/curriculumVitae/CurriculumVitaeList";
+import CurriculumVitaeAdd from "../pages/curriculumVitae/CurriculumVitaeAdd";
+import CurriculumVitaeUpdate from "../pages/curriculumVitae/CurriculumVitaeUpdate";
 
 export default function Dashboard() {
   return (
@@ -27,6 +30,9 @@ export default function Dashboard() {
             <Route exact path="/jobAdvertisementDetail/:id" component={JobAdvertisementDetail}/>
             <Route exact path="/jobAdvertisementAdd" component={JobAdvertisementAdd}/>
             <Route exact path="/jobAdvertisementConfirm" component={jobAdvertisementConfirm}/>
+            <Route path="/curriculumVitaes" component={CurriculumVitaeList} />
+            <Route path="/curriculumVitaeAdd" component={CurriculumVitaeAdd} />
+            <Route path="/curriculumVitaeUpdate" component={CurriculumVitaeUpdate} />
           </Grid.Column>
         </Grid.Row>
       </Grid>

@@ -5,6 +5,7 @@ import { Icon, Menu } from "semantic-ui-react";
 export default function Sidebar() {
   return (
     <div>
+      
       <Menu inverted icon="labeled" vertical>
         <Menu.Item as={NavLink} to="/jobAdvertisements" name="bullhorn">
           <Icon name="bullhorn" />
