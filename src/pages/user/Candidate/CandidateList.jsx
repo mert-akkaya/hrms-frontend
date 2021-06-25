@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 import CandidateService from "../../../services/candidateService";
-import { Button, Card, Image } from 'semantic-ui-react'
+import { Card, Image } from 'semantic-ui-react'
 
 export default function CandidateList() {
   const [candidates, setCandidates] = useState([]);

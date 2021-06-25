@@ -8,7 +8,7 @@ import JobPositionService from "../../../services/jobPositionService";
 import CityService from "../../../services/cityService";
 import EmploymentTypeService from "../../../services/employmentTypeService";
 import WorkTypeService from "../../../services/workTypeService";
-import { boolean } from "yup";
+
 
 export default function JobAdvertisementAdd() {
   const [jobTitles, setJobTitles] = useState([]);

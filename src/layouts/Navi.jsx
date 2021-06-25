@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import { NavLink } from 'react-router-dom';
-import { Button,Icon, Container, Menu } from "semantic-ui-react";
+import { Icon, Container, Menu } from "semantic-ui-react";
 import SignedIn from './SignedIn';
 import SignedOut from './SignedOut';
 
