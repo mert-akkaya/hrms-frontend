@@ -7,6 +7,10 @@ import CurriculumVitaeService from "../../services/curriculumVitaeService";
 import CandidateInformation from "../user/Candidate/CandidateInformation";
 import SchoolInformations from "../school/SchoolInformations";
 import CandidateService from "../../services/candidateService";
+import WorkExperienceInformation from "../workExperience/WorkExperienceInformation";
+import AbilityInformation from "../ability/AbilityInformation";
+import ForeignLanguageInformation from "../foreignLanguage/ForeignLanguageInformation";
+import CoverLetterInformation from "../coverLetter/CoverLetterInformation";
 
 export default function CurriculumVitaeUpdate() {
   const [candidate, setCandidate] = useState({});
@@ -27,10 +31,16 @@ export default function CurriculumVitaeUpdate() {
       });
   }, []);
 
+
   return (
     <Card fluid>
-      <CandidateInformation candidate={candidate} curriculumVitae={curriculumVitae} />
+      <CandidateInformation  curriculumVitae={curriculumVitae} />
       <SchoolInformations curriculumVitae={curriculumVitae} />
+      <WorkExperienceInformation curriculumVitae={curriculumVitae} />
+      <AbilityInformation curriculumVitae={curriculumVitae} />
+      <ForeignLanguageInformation curriculumVitae={curriculumVitae} />
+      <CoverLetterInformation curriculumVitae={curriculumVitae} />
+      
     </Card>
   );
 }

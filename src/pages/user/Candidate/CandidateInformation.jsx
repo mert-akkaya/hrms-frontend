@@ -6,12 +6,22 @@ import HrmsLabel from "../../../utilities/customFormControls/HrmsLabel";
 import CandidateService from '../../../services/candidateService';
 import CandidateUpdateModal from './CandidateUpdateModal';
 
-export default function CandidateInformation({candidate,curriculumVitae}) {
+export default function CandidateInformation({curriculumVitae}) {
    
+  const [candidate, setCandidate] = useState({});
+
+
+  useEffect(() => {
+    let candidateService = new CandidateService();
+    candidateService.getCandidateById(1).then((result) => {
+      setCandidate(result.data.data);
+    });
+  }, []);
 
     return (
     
          <Card fluid>
+            <Image src={curriculumVitae.photoUrl} size="small"  circular centered />
           <Card.Header>
             <strong>Candidate Informations</strong>
           </Card.Header>
@@ -41,7 +51,17 @@ export default function CandidateInformation({candidate,curriculumVitae}) {
               name="birthYear"
               value={candidate.birthYear}
             /> <br/>
-            <CandidateUpdateModal curriculumVitae={curriculumVitae} trigger={<Button floated="right" positive>Update</Button>} />
+            <HrmsLabel name="Github Address"/>  <br/>
+            <Input fluid
+              name="githubAddress"
+              value={curriculumVitae.githubAddress}
+            /> <br/>
+            <HrmsLabel name="LinkedIn Address"/>  <br/>
+            <Input fluid
+              name="linkedinAddress"
+              value={curriculumVitae.linkedinAddress}
+            /> <br/>
+            <CandidateUpdateModal candidate={candidate} curriculumVitae={curriculumVitae} trigger={<Button floated="right" positive>Update</Button>} />
           </Form>
         </Card>
     )

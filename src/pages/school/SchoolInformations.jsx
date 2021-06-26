@@ -17,12 +17,12 @@ export default function SchoolInformations({curriculumVitae}) {
 
   return (
     <div>
-      {schools.map((school) => (
-        <Card key={school.id} fluid>
-          <Card.Header>
+      <Card fluid>
+      <Card.Header>
             <strong>School Informations</strong>
           </Card.Header>
-          <Form style={{marginLeft:"15px",marginRight:"15px",marginTop:"15px",marginBottom:"15px"}}>
+      {schools.map((school) => (
+          <Form key={school.id} style={{marginLeft:"15px",marginRight:"15px",marginTop:"15px",marginBottom:"15px"}}>
             <HrmsLabel name="School Name"/>  <br/>
             <Input fluid
               name="schoolName"
@@ -50,8 +50,9 @@ export default function SchoolInformations({curriculumVitae}) {
             /> <br/>
             <SchoolUpdateModal school={school} curriculumVitae={curriculumVitae} trigger={<Button floated="right" positive>Update</Button>} />
           </Form>
-        </Card>
       ))}
+      </Card>
+      
     </div>
   );
 }

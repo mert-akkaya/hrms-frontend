@@ -5,28 +5,19 @@ import HrmsLabel from "../../../utilities/customFormControls/HrmsLabel";
 import CandidateService from "../../../services/candidateService";
 import * as Yup from "yup";
 
-export default function CandidateUpdateModal({ curriculumVitae, trigger }) {
+export default function CandidateUpdateModal({candidate, curriculumVitae, trigger }) {
   const [open, setOpen] = useState(false);
-  const [candidate, setCandidate] = useState({});
-
-
-  useEffect(() => {
-    let candidateService = new CandidateService();
-    candidateService.getCandidateById(1).then((result) => {
-      setCandidate(result.data.data);
-      console.log(candidate)
-    });
-  }, []);
+  
 
 
   const formik = useFormik({
     initialValues:{
-    firstName: curriculumVitae.candidate?.firstName,
-    lastName: candidate?.lastName,
-    email: candidate?.email,
-    identityNumber: candidate?.identityNumber,
-    birthYear: candidate?.birthYear,
-    password: candidate?.password,
+     firstName: candidate.firstName,
+    lastName: candidate.lastName,
+    email: candidate.email,
+    identityNumber: candidate.identityNumber,
+    birthYear: candidate.birthYear,
+    password: candidate.password,
   }
     ,
     validationSchema: Yup.object({
@@ -55,10 +46,12 @@ export default function CandidateUpdateModal({ curriculumVitae, trigger }) {
         window.location.reload();
       });
     },
+    enableReinitialize:true
   });
 
   return (
-    <Modal
+    <div>
+      <Modal
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
@@ -141,5 +134,7 @@ export default function CandidateUpdateModal({ curriculumVitae, trigger }) {
         </Form>
       </Modal.Content>
     </Modal>
+    </div>
+    
   );
 }
