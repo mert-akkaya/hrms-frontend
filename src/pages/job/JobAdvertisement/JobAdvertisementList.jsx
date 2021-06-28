@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
-import { Card, Grid, Pagination } from "semantic-ui-react";
+import { Card, Grid, Pagination, Dropdown, Segment } from "semantic-ui-react";
 import JobAdvertisementService from "../../../services/jobAdvertisementService";
 import SideBar from "../../../layouts/Sidebar";
 
@@ -50,17 +50,26 @@ export default function JobAdvertisementList() {
     }
   };
 
-  const message = () => {
-    <h3>
-      <strong>No such job advertisement found.</strong>
-    </h3>;
-  };
+  const handleChangePageSize = (value)=>{
+    setPageSize(value);
+    jobAdvertisementService.getAllByIsActiveTruePageable(page,value).then((result)=>{
+      setJobAdvertisements(result.data.data)
+    })
+  }
+
+  function handleChangePage(page) {
+    setPage(page);
+    jobAdvertisementService.getAllByIsActiveTruePageable(page, pageSize).then(results => {
+        setJobAdvertisements(results.data.data);
+    });
+}
+  
   return (
     <div>
       <Grid>
         <Grid.Row>
           <Grid.Column width={3}>
-            <SideBar />
+            <SideBar handleChangePageSize={handleChangePageSize} />
           </Grid.Column>
           <Grid.Column width={13}>
             {jobAdvertisements.map((jobAdvertisement) => (
@@ -95,7 +104,9 @@ export default function JobAdvertisementList() {
                 </Card>
               </Card.Group>
             ))}
-            <Pagination defaultActivePage={1} totalPages={10} />
+            <Pagination  defaultActivePage={page} onPageChange={(e,data)=>{
+              handleChangePage(data.activePage)
+            }} totalPages={10} />
           </Grid.Column>
         </Grid.Row>
       </Grid>

@@ -5,7 +5,7 @@ import CityService from "../services/cityService";
 import EmploymentTypeService from "../services/employmentTypeService";
 import WorkTypeService from "../services/workTypeService";
 
-export default function Sidebar() {
+export default function Sidebar({handleChangePageSize}) {
   const [cities, setCities] = useState([])
   const [employmentTypes, setEmploymentTypes] = useState([])
 
@@ -32,6 +32,12 @@ export default function Sidebar() {
     value:employmentType.id
   }))
 
+  const pageSizes = [
+    { key: 'pageSize10', text: '10', value: '10' },
+    { key: 'pageSize20', text: '20', value: '20' },
+    { key: 'pageSize50', text: '50', value: '50' },
+    { key: 'pageSize100', text: '100', value: '100' }
+];
  const handleChangeCity=(e,value)=>{
       setFilteredCity(value)   
 
@@ -60,6 +66,11 @@ export default function Sidebar() {
           handleChangeEmploymentType(e,data.value)
         }} />
       </Segment>
+      <Segment >
+          <Dropdown fluid placeholder="Per page"  search selection options={pageSizes} onChange={(e,data)=>{
+            handleChangePageSize(data.value)
+          }} ></Dropdown>
+       </Segment>
      <Button positive fluid><Link style={{color:"white"}} to={`/jobAdvertisement/${filteredCity}/${filteredEmploymentType}`}>Search</Link></Button> 
     </div>
   );
