@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import { Button, Form, Modal, Input, Message } from "semantic-ui-react";
 import HrmsLabel from "../../../utilities/customFormControls/HrmsLabel";
 import CandidateService from "../../../services/candidateService";
+import CurriculumVitaeService from "../../../services/curriculumVitaeService";
 import * as Yup from "yup";
 
 export default function CandidateUpdateModal({candidate, curriculumVitae, trigger }) {
@@ -18,6 +19,8 @@ export default function CandidateUpdateModal({candidate, curriculumVitae, trigge
     identityNumber: candidate.identityNumber,
     birthYear: candidate.birthYear,
     password: candidate.password,
+    githubAddress:curriculumVitae.githubAddress,
+    linkedinAddress:curriculumVitae.linkedinAddress,
   }
     ,
     validationSchema: Yup.object({
@@ -42,7 +45,13 @@ export default function CandidateUpdateModal({candidate, curriculumVitae, trigge
       };
 
       let candidateService = new CandidateService();
-      candidateService.update(candidateModel).then((result) => {
+      candidateService.update(candidateModel);
+
+      curriculumVitae.githubAddress = values.githubAddress;
+      curriculumVitae.linkedinAddress = values.linkedinAddress;
+
+      let curriculumVitaeService = new CurriculumVitaeService();
+      curriculumVitaeService.update(curriculumVitae).then((result) => {
         window.location.reload();
       });
     },
@@ -122,6 +131,26 @@ export default function CandidateUpdateModal({candidate, curriculumVitae, trigge
                 formik.handleChange(e);
               }}
               value={formik.values.birthYear}
+            />
+            <br />
+            <HrmsLabel name="Github Address" /> <br />
+            <Input
+              fluid
+              name="githubAddress"
+              onChange={(e) => {
+                formik.handleChange(e);
+              }}
+              value={formik.values.githubAddress}
+            />
+            <br />
+            <HrmsLabel name="LinkedIn Address" /> <br />
+            <Input
+              fluid
+              name="linkedinAddress"
+              onChange={(e) => {
+                formik.handleChange(e);
+              }}
+              value={formik.values.linkedinAddress}
             />
             <br />
             <Button color="black" onClick={() => setOpen(false)}>

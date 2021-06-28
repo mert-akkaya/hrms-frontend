@@ -12,20 +12,21 @@ import jobAdvertisementConfirm from "../pages/job/JobAdvertisement/JobAdvertisem
 import CurriculumVitaeList from "../pages/curriculumVitae/CurriculumVitaeList";
 import CurriculumVitaeAdd from "../pages/curriculumVitae/CurriculumVitaeAdd";
 import CurriculumVitaeUpdate from "../pages/curriculumVitae/CurriculumVitaeUpdate";
+import EmployeeList from "../pages/user/Employee/EmployeeList";
+import EmployeeUpdate from "../pages/user/Employee/EmployeeUpdate";
 
 export default function Dashboard() {
   return (
     <div>
       <Grid>
         <Grid.Row>
-          <Grid.Column width={2}>
-            <Sidebar />
-          </Grid.Column>
-          <Grid.Column width={14}>
+         
+          <Grid.Column>
             <Route exact path="/" component={JobAdvertisementList}/>
             <Route exact path="/jobAdvertisements" component={JobAdvertisementList}/>
             <Route exact path="/candidates" component={CandidateList}/>
             <Route exact path="/employers" component={EmployerList}/>
+            <Route exact path="/employees" component={EmployeeList} />
             <Route exact path="/jobPositions" component={JobPositionList}/>
             <Route exact path="/jobAdvertisementDetail/:id" component={JobAdvertisementDetail}/>
             <Route exact path="/jobAdvertisementAdd" component={JobAdvertisementAdd}/>
@@ -33,6 +34,8 @@ export default function Dashboard() {
             <Route path="/curriculumVitaes" component={CurriculumVitaeList} />
             <Route path="/curriculumVitaeAdd" component={CurriculumVitaeAdd} />
             <Route path="/curriculumVitaeUpdate" component={CurriculumVitaeUpdate} />
+            <Route path="/employeeUpdate" component={EmployeeUpdate} />
+            <Route exact path="/jobAdvertisement/:cityId/:employmentTypeId" component={JobAdvertisementList} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
