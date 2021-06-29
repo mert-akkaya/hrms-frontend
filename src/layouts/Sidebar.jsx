@@ -5,7 +5,7 @@ import CityService from "../services/cityService";
 import EmploymentTypeService from "../services/employmentTypeService";
 import WorkTypeService from "../services/workTypeService";
 
-export default function Sidebar({handleChangePageSize}) {
+export default function Sidebar({applyFilters,handleChangePageSize}) {
   const [cities, setCities] = useState([])
   const [employmentTypes, setEmploymentTypes] = useState([])
 
@@ -47,7 +47,11 @@ export default function Sidebar({handleChangePageSize}) {
     setFilteredEmploymentType(value)
   }
 
-  
+  const setFilters =()=>{
+    if (filteredCity || filteredEmploymentType) {
+      applyFilters(filteredCity,filteredEmploymentType);
+    }
+  }
 
   return (
     <div>
@@ -71,7 +75,7 @@ export default function Sidebar({handleChangePageSize}) {
             handleChangePageSize(data.value)
           }} ></Dropdown>
        </Segment>
-     <Button positive fluid><Link style={{color:"white"}} to={`/jobAdvertisement/${filteredCity}/${filteredEmploymentType}`}>Search</Link></Button> 
+     <Button onClick={setFilters} positive fluid>Search</Button> 
     </div>
   );
 }

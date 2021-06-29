@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
-import { Card, Grid, Pagination, Dropdown, Segment } from "semantic-ui-react";
+import { Card, Grid, Pagination } from "semantic-ui-react";
 import JobAdvertisementService from "../../../services/jobAdvertisementService";
 import SideBar from "../../../layouts/Sidebar";
 
@@ -8,18 +8,12 @@ export default function JobAdvertisementList() {
   const [jobAdvertisements, setJobAdvertisements] = useState([]);
   const [currentJob, setCurrentJob] = useState({});
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   let { cityId, employmentTypeId } = useParams();
   const jobAdvertisementService = new JobAdvertisementService();
 
   useEffect(() => {
     if (cityId && employmentTypeId) {
-      jobAdvertisementService
-        .getAllByCityAndEmploymentTypeId(cityId, employmentTypeId)
-        .then((result) => {
-          setJobAdvertisements(result.data.data);
-          console.log(cityId + " " + employmentTypeId);
-        });
     } else if (cityId != undefined && employmentTypeId == null) {
       return jobAdvertisementService.getAllByCityId(cityId).then((result) => {
         setJobAdvertisements(result.data.data);
@@ -39,6 +33,34 @@ export default function JobAdvertisementList() {
     }
   }, []);
 
+  function applyFilters(cityId, employmentTypeId) {
+    if (cityId && employmentTypeId) {
+      jobAdvertisementService
+        .getAllByCityAndEmploymentTypeId(
+          cityId,
+          employmentTypeId,
+          page,
+          pageSize
+        )
+        .then((result) => {
+          setJobAdvertisements(result.data.data);
+          console.log(cityId + " " + employmentTypeId);
+        });
+    } else if (cityId) {
+      jobAdvertisementService
+        .getAllByCityId(cityId, page, pageSize)
+        .then((result) => {
+          setJobAdvertisements(result.data.data);
+        });
+    } else {
+      jobAdvertisementService
+        .getAllByEmploymentTypeId(employmentTypeId, page, pageSize)
+        .then((result) => {
+          setJobAdvertisements(result.data.data);
+        });
+    }
+  }
+
   let setCurrentJobAdvertisement = (jobAdvertisement) => {
     setCurrentJob(jobAdvertisement);
   };
@@ -50,26 +72,33 @@ export default function JobAdvertisementList() {
     }
   };
 
-  const handleChangePageSize = (value)=>{
+  const handleChangePageSize = (value) => {
     setPageSize(value);
-    jobAdvertisementService.getAllByIsActiveTruePageable(page,value).then((result)=>{
-      setJobAdvertisements(result.data.data)
-    })
-  }
+    jobAdvertisementService
+      .getAllByIsActiveTruePageable(page, value)
+      .then((result) => {
+        setJobAdvertisements(result.data.data);
+      });
+  };
 
   function handleChangePage(page) {
     setPage(page);
-    jobAdvertisementService.getAllByIsActiveTruePageable(page, pageSize).then(results => {
+    jobAdvertisementService
+      .getAllByIsActiveTruePageable(page, pageSize)
+      .then((results) => {
         setJobAdvertisements(results.data.data);
-    });
-}
-  
+      });
+  }
+
   return (
     <div>
       <Grid>
         <Grid.Row>
           <Grid.Column width={3}>
-            <SideBar handleChangePageSize={handleChangePageSize} />
+            <SideBar
+              applyFilters={applyFilters}
+              handleChangePageSize={handleChangePageSize}
+            />
           </Grid.Column>
           <Grid.Column width={13}>
             {jobAdvertisements.map((jobAdvertisement) => (
@@ -104,9 +133,13 @@ export default function JobAdvertisementList() {
                 </Card>
               </Card.Group>
             ))}
-            <Pagination  defaultActivePage={page} onPageChange={(e,data)=>{
-              handleChangePage(data.activePage)
-            }} totalPages={10} />
+            <Pagination
+              defaultActivePage={page}
+              onPageChange={(e, data) => {
+                handleChangePage(data.activePage);
+              }}
+              totalPages={10}
+            />
           </Grid.Column>
         </Grid.Row>
       </Grid>
