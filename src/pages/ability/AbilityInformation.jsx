@@ -16,8 +16,8 @@ export default function AbilityInformation({curriculumVitae}) {
     return (
         <div>
             <Card fluid>
-                <Card.Header>
-                <strong>Ability Informations</strong>
+                <Card.Header textAlign="center">
+                <strong>Update Ability Informations</strong>
                 </Card.Header>
             {abilities.map((ability)=>(
                 <div>

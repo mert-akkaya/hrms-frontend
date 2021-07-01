@@ -16,8 +16,8 @@ export default function ForeignLanguageInformation({ curriculumVitae }) {
   return (
     <div>
       <Card fluid>
-        <Card.Header>
-          <strong>Language Informations</strong>
+        <Card.Header textAlign="center">
+          <strong>Update Language Informations</strong>
         </Card.Header>
         {foreignLanguages.map((foreignLanguage) => (
           <Form

@@ -21,9 +21,9 @@ export default function CandidateInformation({curriculumVitae}) {
     return (
     
          <Card fluid>
-            <Image src={curriculumVitae.photoUrl} size="small"  circular centered />
-          <Card.Header>
-            <strong>Candidate Informations</strong>
+            <Image src={curriculumVitae.photoUrl} size="small"  circular centered /><br/><br/>
+          <Card.Header textAlign="center">
+            <strong>Update Informations</strong>
           </Card.Header>
           <Form  action style={{marginLeft:"15px",marginRight:"15px",marginTop:"15px",marginBottom:"15px"}}>
             <HrmsLabel name="First Name"/>  <br/>

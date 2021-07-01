@@ -17,8 +17,8 @@ export default function WorkExperienceInformation({curriculumVitae}) {
         <div>
             {workExperiences.map((workExperience)=>(
                 <Card key={workExperience.id} fluid>
-                <Card.Header>
-                  <strong>Work Experiences Informations</strong>
+                <Card.Header textAlign="center">
+                  <strong>Update Experience Informations</strong>
                 </Card.Header>
                 <Form style={{marginLeft:"15px",marginRight:"15px",marginTop:"15px",marginBottom:"15px"}}>
                   <HrmsLabel name="Workplace Name"/>  <br/>

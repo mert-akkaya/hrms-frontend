@@ -7,7 +7,7 @@ export default function CoverLetterInformation({ curriculumVitae }) {
   return (
     <div>
       <Card fluid>
-        <Card.Header>
+        <Card.Header textAlign="center">
           <strong>Cover Letter</strong>
         </Card.Header>
 

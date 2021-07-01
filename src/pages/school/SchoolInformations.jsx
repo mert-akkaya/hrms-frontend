@@ -18,8 +18,8 @@ export default function SchoolInformations({curriculumVitae}) {
   return (
     <div>
       <Card fluid>
-      <Card.Header>
-            <strong>School Informations</strong>
+      <Card.Header textAlign="center">
+            <strong>Update School Informations</strong>
           </Card.Header>
       {schools.map((school) => (
           <Form key={school.id} style={{marginLeft:"15px",marginRight:"15px",marginTop:"15px",marginBottom:"15px"}}>

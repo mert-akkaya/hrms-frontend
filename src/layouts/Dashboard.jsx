@@ -14,6 +14,8 @@ import CurriculumVitaeAdd from "../pages/curriculumVitae/CurriculumVitaeAdd";
 import CurriculumVitaeUpdate from "../pages/curriculumVitae/CurriculumVitaeUpdate";
 import EmployeeList from "../pages/user/Employee/EmployeeList";
 import EmployeeUpdate from "../pages/user/Employee/EmployeeUpdate";
+import EmployerUpdate from "../pages/user/Employer/EmployerUpdate";
+import Profile from "../pages/profile/Profile";
 
 export default function Dashboard() {
   return (
@@ -36,6 +38,8 @@ export default function Dashboard() {
             <Route path="/curriculumVitaeUpdate" component={CurriculumVitaeUpdate} />
             <Route path="/employeeUpdate" component={EmployeeUpdate} />
             <Route exact path="/jobAdvertisement/:cityId/:employmentTypeId" component={JobAdvertisementList} />
+            <Route path="/employerUpdate" component={EmployerUpdate} />
+            <Route path="/profile" component={Profile}/>
           </Grid.Column>
         </Grid.Row>
       </Grid>
