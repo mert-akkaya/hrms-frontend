@@ -16,6 +16,7 @@ import EmployeeList from "../pages/user/Employee/EmployeeList";
 import EmployeeUpdate from "../pages/user/Employee/EmployeeUpdate";
 import EmployerUpdate from "../pages/user/Employer/EmployerUpdate";
 import Profile from "../pages/profile/Profile";
+import EmployerUpdateConfirm from "../pages/user/Employer/EmployerUpdateConfirm";
 
 export default function Dashboard() {
   return (
@@ -40,6 +41,7 @@ export default function Dashboard() {
             <Route exact path="/jobAdvertisement/:cityId/:employmentTypeId" component={JobAdvertisementList} />
             <Route path="/employerUpdate" component={EmployerUpdate} />
             <Route path="/profile" component={Profile}/>
+            <Route path="/employerUpdateConfirm" component={EmployerUpdateConfirm} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
