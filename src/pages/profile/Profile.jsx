@@ -11,7 +11,7 @@ export default function Profile() {
                         <ProfileSideBar/>
                     </Grid.Column>
                     <Grid.Column width={13}>
-
+                        
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

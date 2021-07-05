@@ -10,7 +10,16 @@ export default class AbilityService{
         return axios.get("http://localhost:8080/api/abilities/getAllByCurriculumVitaeId?curriculumVitaeId="+curriculumVitaeId)
     }
 
+    add(abilityModel){
+        return axios.post("http://localhost:8080/api/abilities/add",abilityModel)
+    }
+
     update(abilityModel){
         return axios.put("http://localhost:8080/api/abilities/update",abilityModel)
     }
+
+    delete(abilityId){
+        return axios.post("http://localhost:8080/api/abilities/delete?abilityId="+abilityId);
+    }
+
 }

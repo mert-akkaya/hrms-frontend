@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import JobAdvertisementService from "../../../services/jobAdvertisementService";
 import FavoriteService from "../../../services/favoriteService";
 import { Button, Card, Grid, Rating, Label } from "semantic-ui-react";
+import { toast } from "react-toastify";
 
 export default function JobAdvertisementDetail() {
   let { id } = useParams();
@@ -39,9 +40,11 @@ export default function JobAdvertisementDetail() {
     if (isFavorite) {
       favoriteService.delete(favorite);
       setİsFavorite(false)
+      toast.warning("Removed from favorites")
     } else {
       favoriteService.add(favoriteModel);
       setİsFavorite(true)
+      toast.success("Added to favorites")
     }
   };
 

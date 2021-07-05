@@ -5,12 +5,11 @@ import HrmsLabel from "../../../utilities/customFormControls/HrmsLabel";
 import CandidateService from "../../../services/candidateService";
 import CurriculumVitaeService from "../../../services/curriculumVitaeService";
 import * as Yup from "yup";
+import { toast } from "react-toastify";
 
 export default function CandidateUpdateModal({candidate, curriculumVitae, trigger }) {
   const [open, setOpen] = useState(false);
   
-
-
   const formik = useFormik({
     initialValues:{
      firstName: candidate.firstName,
@@ -52,6 +51,7 @@ export default function CandidateUpdateModal({candidate, curriculumVitae, trigge
 
       let curriculumVitaeService = new CurriculumVitaeService();
       curriculumVitaeService.update(curriculumVitae).then((result) => {
+        toast.success("Update success");
         window.location.reload();
       });
     },

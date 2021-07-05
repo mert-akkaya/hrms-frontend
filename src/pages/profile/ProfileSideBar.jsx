@@ -1,26 +1,46 @@
 import React from "react";
-import {  Icon, Menu, Sidebar } from "semantic-ui-react";
+import { useState } from "react";
+import { Header, Icon, Image, Menu, Segment, Sidebar } from "semantic-ui-react";
 
 export default function ProfileSideBar() {
+  const [activeItem, setActiveItem] = useState("profile")
+  const handleItemClick =(e,name)=>{
+      setActiveItem(name);
+  }
   return (
     <div>
-        <Sidebar
-          visible
+      <Menu fluid vertical tabular>
+        <Menu.Item
+          name='profile'
+          active={activeItem === 'profile'}
+          onClick={(e,data)=>{handleItemClick(e,data.name)}}
         >
-          <Menu.Item as="a">
-            <Icon name="home" />
-            Profile
-          </Menu.Item>
-          <Menu.Item as="a">
-            <Icon name="gamepad" />
-            Games
-          </Menu.Item>
-          <Menu.Item as="a">
-            <Icon name="camera" />
-            Channels
-          </Menu.Item>
-        </Sidebar>
+          Profile
+        </Menu.Item>
 
+        <Menu.Item
+          name='resume'
+          active={activeItem === 'resume'}
+          onClick={(e,data)=>{handleItemClick(e,data.name)}}
+        >
+          Resumes
+        </Menu.Item>
+
+        <Menu.Item
+          name='application'
+          active={activeItem === 'application'}
+          onClick={(e,data)=>{handleItemClick(e,data.name)}}
+        >
+          Aplications
+        </Menu.Item>
+        <Menu.Item
+          name='favorite'
+          active={activeItem === 'favorite'}
+          onClick={(e,data)=>{handleItemClick(e,data.name)}}
+        >
+          Favorites
+        </Menu.Item>
+      </Menu>
     </div>
   );
 }

@@ -1,16 +1,38 @@
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import { Button, Input, Modal, Form, Label } from "semantic-ui-react";
+import { useEffect } from "react";
+import { Button, Input, Modal, Form, Label,Dropdown } from "semantic-ui-react";
 import * as Yup from "yup";
 import ForeignLanguageService from "../../services/foreignLanguageService";
+import LanguageService from "../../services/languageService";
 import HrmsLabel from "../../utilities/customFormControls/HrmsLabel";
 
-export default function ForeignLanguageUpdateModal({foreignLanguage,curriculumVitae,trigger}) {
+export default function ForeignLanguageAddModal({curriculumVitae,trigger}) {
   const [open, setOpen] = useState(false);
+  const [languages, setLanguages] = useState([]);
+
+  useEffect(()=>{
+    let languageService = new LanguageService();
+    languageService.getAll().then((result)=>{
+        setLanguages(result.data.data)
+    });
+    
+  },[])
+
+
+  const languageoptions = languages.map((language,index)=>({
+    key:index,
+    text:language.name,
+    value:language.id
+  }))
+
+  const handleChangeSemantic= (field,value)=>{
+    formik.setFieldValue(field,value);
+  }
 
   const formik = useFormik({
     initialValues: {
-      languageName: "",
+      languageId: "",
       level: "",
     },
     validationSchema: Yup.object({
@@ -21,14 +43,13 @@ export default function ForeignLanguageUpdateModal({foreignLanguage,curriculumVi
             curriculumVitae:{
                 id:curriculumVitae.id
             },
-            id:foreignLanguage.id,
             language:{
-              id:foreignLanguage.language.id,
+              id:values.languageId,
           },
             level:values.level
         }
         let foreignLanguageService = new ForeignLanguageService();
-        foreignLanguageService.update(foreignLanguageModel).then((result)=>{window.location.reload()})
+        foreignLanguageService.add(foreignLanguageModel).then((result)=>{window.location.reload()})
     },
   });
   return (
@@ -51,19 +72,12 @@ export default function ForeignLanguageUpdateModal({foreignLanguage,curriculumVi
       >
         <Modal.Description>
           <HrmsLabel name="Language" /> <br />
-          <Input
-            fluid
-            name="languageName"
-            onChange={(e) => {
-              formik.handleChange(e);
-            }}
-            value={formik.values.languageName}
-          />
-          {formik.errors.languageName && formik.touched.languageName ? (
-            <Label pointing color="red">
-              {formik.errors.languageName}
-            </Label>
-          ) : null}
+          <Dropdown fluid search selection  placeholder="Languages"
+           options={languageoptions} onChange={(e,data)=>{
+              handleChangeSemantic("languageId",data.value)
+              console.log(data.value);
+           }} value={formik.values.languageId} />
+          
           <br />
           <HrmsLabel name="Level" /> <br />
           <Input
@@ -79,7 +93,7 @@ export default function ForeignLanguageUpdateModal({foreignLanguage,curriculumVi
             Close
           </Button>
           <Button positive onClick={formik.handleSubmit} type="submit">
-            Update
+            Add
           </Button>
         </Modal.Description>
       </Form>

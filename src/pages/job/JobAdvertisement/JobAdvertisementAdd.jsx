@@ -8,6 +8,7 @@ import JobPositionService from "../../../services/jobPositionService";
 import CityService from "../../../services/cityService";
 import EmploymentTypeService from "../../../services/employmentTypeService";
 import WorkTypeService from "../../../services/workTypeService";
+import { toast } from "react-toastify";
 
 
 export default function JobAdvertisementAdd() {
@@ -79,7 +80,7 @@ export default function JobAdvertisementAdd() {
 
       let jobAdvertisementService = new JobAdvertisementService();
       jobAdvertisementService.addJobAdvertisement(jobAdvertisementModel).then((result)=>console.log(result));
-      alert("Success")
+      toast.success("Job advertisement added");
       history.push("/jobAdvertisements")
     },
   });

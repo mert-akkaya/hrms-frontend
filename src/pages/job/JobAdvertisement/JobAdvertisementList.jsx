@@ -9,29 +9,15 @@ export default function JobAdvertisementList() {
   const [currentJob, setCurrentJob] = useState({});
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  let { cityId, employmentTypeId } = useParams();
   const jobAdvertisementService = new JobAdvertisementService();
 
   useEffect(() => {
-    if (cityId && employmentTypeId) {
-    } else if (cityId != undefined && employmentTypeId == null) {
-      return jobAdvertisementService.getAllByCityId(cityId).then((result) => {
-        setJobAdvertisements(result.data.data);
-      });
-    } else if (employmentTypeId) {
-      return jobAdvertisementService
-        .getAllByEmploymentTypeId(employmentTypeId)
-        .then((result) => {
-          setJobAdvertisements(result.data.data);
-        });
-    } else {
-      return jobAdvertisementService
+    jobAdvertisementService
         .getAllByIsActiveTruePageable(page, pageSize)
         .then((result) => {
           setJobAdvertisements(result.data.data);
         });
-    }
-  }, []);
+    },[]);
 
   function applyFilters(cityId, employmentTypeId) {
     if (cityId && employmentTypeId) {

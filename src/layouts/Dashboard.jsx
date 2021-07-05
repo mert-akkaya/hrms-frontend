@@ -2,7 +2,7 @@ import React from "react";
 import { Grid } from "semantic-ui-react";
 import JobPositionList from "../pages/job/JobPosition/JobPositionList";
 import JobAdvertisementList from "../pages/job/JobAdvertisement/JobAdvertisementList";
-import Sidebar from "./Sidebar";
+import { ToastContainer } from "react-toastify";
 import { Route } from "react-router";
 import CandidateList from "../pages/user/Candidate/CandidateList";
 import EmployerList from "../pages/user/Employer/EmployerList";
@@ -21,6 +21,7 @@ import EmployerUpdateConfirm from "../pages/user/Employer/EmployerUpdateConfirm"
 export default function Dashboard() {
   return (
     <div>
+      <ToastContainer position="bottom-right"/>
       <Grid>
         <Grid.Row>
          
