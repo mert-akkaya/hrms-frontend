@@ -6,45 +6,38 @@ import SideBar from "../../../layouts/Sidebar";
 
 export default function JobAdvertisementList() {
   const [jobAdvertisements, setJobAdvertisements] = useState([]);
+  const [jobAdvertisementsCount, setJobAdvertisementsCount] = useState(0);
   const [currentJob, setCurrentJob] = useState({});
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(1);
+  const [filter, setFilter] = useState({})
   const jobAdvertisementService = new JobAdvertisementService();
 
   useEffect(() => {
     jobAdvertisementService
-        .getAllByIsActiveTruePageable(page, pageSize)
-        .then((result) => {
+        .getAllByIsActiveTrueAndFilter(page,pageSize,filter).then((result)=>{
           setJobAdvertisements(result.data.data);
-        });
-    },[]);
+          setJobAdvertisementsCount(parseInt(result.data.message));
+        })
+    },[filter,pageSize,page]);
 
-  function applyFilters(cityId, employmentTypeId) {
-    if (cityId && employmentTypeId) {
-      jobAdvertisementService
-        .getAllByCityAndEmploymentTypeId(
-          cityId,
-          employmentTypeId,
-          page,
-          pageSize
-        )
-        .then((result) => {
-          setJobAdvertisements(result.data.data);
-          console.log(cityId + " " + employmentTypeId);
-        });
-    } else if (cityId) {
-      jobAdvertisementService
-        .getAllByCityId(cityId, page, pageSize)
-        .then((result) => {
-          setJobAdvertisements(result.data.data);
-        });
-    } else {
-      jobAdvertisementService
-        .getAllByEmploymentTypeId(employmentTypeId, page, pageSize)
-        .then((result) => {
-          setJobAdvertisements(result.data.data);
-        });
+    
+  function applyFilters(filterOption) {
+    if(filterOption.cityId.length === 0){
+      filterOption.cityId = null;
     }
+    if(filterOption.employmentTypeId.length === 0){
+      filterOption.employmentTypeId = null;
+    }
+    let filterModel ={
+      cityId:[
+        filterOption.cityId
+      ],
+      employmentTypeId:[
+        filterOption.employmentTypeId
+      ]
+    }
+    setFilter(filterModel);
   }
 
   let setCurrentJobAdvertisement = (jobAdvertisement) => {
@@ -59,21 +52,12 @@ export default function JobAdvertisementList() {
   };
 
   const handleChangePageSize = (value) => {
-    setPageSize(value);
-    jobAdvertisementService
-      .getAllByIsActiveTruePageable(page, value)
-      .then((result) => {
-        setJobAdvertisements(result.data.data);
-      });
+    setPage(1);
+   setPageSize(value);  
   };
 
-  function handleChangePage(page) {
-    setPage(page);
-    jobAdvertisementService
-      .getAllByIsActiveTruePageable(page, pageSize)
-      .then((results) => {
-        setJobAdvertisements(results.data.data);
-      });
+  const handleChangePage= (e,{activePage}) => {
+    setPage(activePage);
   }
 
   return (
@@ -120,11 +104,11 @@ export default function JobAdvertisementList() {
               </Card.Group>
             ))}
             <Pagination
-              defaultActivePage={page}
-              onPageChange={(e, data) => {
-                handleChangePage(data.activePage);
-              }}
-              totalPages={10}
+              firstItem={null}
+              lastItem={null}
+              activePage={page}
+              onPageChange={handleChangePage}
+              totalPages={Math.ceil(jobAdvertisementsCount/pageSize)}
             />
           </Grid.Column>
         </Grid.Row>

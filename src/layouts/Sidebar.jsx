@@ -9,8 +9,8 @@ export default function Sidebar({applyFilters,handleChangePageSize}) {
   const [cities, setCities] = useState([])
   const [employmentTypes, setEmploymentTypes] = useState([])
 
-  const [filteredCity, setFilteredCity] = useState(null)
-  const [filteredEmploymentType, setFilteredEmploymentType] = useState(null)
+  const [filteredCity, setFilteredCity] = useState([]);
+  const [filteredEmploymentType, setFilteredEmploymentType] = useState([])
 
   useEffect(()=>{
     let cityService = new CityService();
@@ -47,11 +47,6 @@ export default function Sidebar({applyFilters,handleChangePageSize}) {
     setFilteredEmploymentType(value)
   }
 
-  const setFilters =()=>{
-    if (filteredCity || filteredEmploymentType) {
-      applyFilters(filteredCity,filteredEmploymentType);
-    }
-  }
 
   return (
     <div>
@@ -75,7 +70,7 @@ export default function Sidebar({applyFilters,handleChangePageSize}) {
             handleChangePageSize(data.value)
           }} ></Dropdown>
        </Segment>
-     <Button onClick={setFilters} positive fluid>Search</Button> 
+     <Button onClick={()=>{applyFilters({cityId:filteredCity,employmentTypeId:filteredEmploymentType})}} positive fluid>Search</Button> 
     </div>
   );
 }
