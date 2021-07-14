@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AbilityService from "../../services/abilityService";
-import { Card, Input, Form, Button } from "semantic-ui-react";
+import { Card,Form, Button } from "semantic-ui-react";
 import HrmsLabel from "../../utilities/customFormControls/HrmsLabel";
 import AbilityUpdateModal from "./AbilityUpdateModal";
 import AbilityAddModal from "./AbilityAddModal";
@@ -18,7 +18,7 @@ export default function AbilityInformation({ curriculumVitae }) {
   function deleteAbility(abilityId) {
     let abilityService = new AbilityService();
     abilityService.delete(abilityId).then((result) => {
-      window.location.reload();
+      document.getElementById(abilityId).remove();
     });
   }
 
@@ -38,6 +38,7 @@ export default function AbilityInformation({ curriculumVitae }) {
         </Card.Header>
         {abilities.map((ability) => (
           <Form
+            id={ability.id}
             key={ability.id}
             style={{
               marginLeft: "15px",

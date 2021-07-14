@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Card, Grid, Pagination } from "semantic-ui-react";
+import { useDispatch, useSelector } from "react-redux";
 import JobAdvertisementService from "../../../services/jobAdvertisementService";
 import SideBar from "../../../layouts/Sidebar";
+import {setPageSizeAction } from "../../../store/actions/pageSizeActions";
 
 export default function JobAdvertisementList() {
   const [jobAdvertisements, setJobAdvertisements] = useState([]);
   const [jobAdvertisementsCount, setJobAdvertisementsCount] = useState(0);
   const [currentJob, setCurrentJob] = useState({});
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(1);
   const [filter, setFilter] = useState({})
   const jobAdvertisementService = new JobAdvertisementService();
+  const dispatch = useDispatch();
+  const {pageSize} = useSelector((state)=> state.pageSize) 
+  
 
   useEffect(() => {
     jobAdvertisementService
@@ -52,8 +56,8 @@ export default function JobAdvertisementList() {
   };
 
   const handleChangePageSize = (value) => {
-    setPage(1);
-   setPageSize(value);  
+    setPage(1); 
+    dispatch(setPageSizeAction(value));
   };
 
   const handleChangePage= (e,{activePage}) => {

@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import { Label, Button, Form, TextArea, Modal, Input } from "semantic-ui-react";
+import { Label, Button, Form, TextArea, Modal } from "semantic-ui-react";
 import * as Yup from "yup";
 import CurriculumVitaeService from "../../services/curriculumVitaeService";
 import HrmsLabel from "../../utilities/customFormControls/HrmsLabel";

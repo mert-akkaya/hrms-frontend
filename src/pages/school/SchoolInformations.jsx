@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Input, Form, Button } from "semantic-ui-react";
+import { Card, Form, Button } from "semantic-ui-react";
 import SchoolService from "../../services/schoolService";
 import HrmsLabel from "../../utilities/customFormControls/HrmsLabel";
 import SchoolAddModal from "./SchoolAddModal";
@@ -18,7 +18,7 @@ export default function SchoolInformations({ curriculumVitae }) {
   function deleteSchool(schoolId) {
     let schoolService = new SchoolService();
     schoolService.delete(schoolId).then((result) => {
-      window.location.reload();
+      document.getElementById(schoolId).remove();
     });
   }
   return (
@@ -36,7 +36,7 @@ export default function SchoolInformations({ curriculumVitae }) {
           />
         </Card.Header>
         {schools.map((school) => (
-          <Form
+          <Form id={school.id}
             key={school.id}
             style={{
               marginLeft: "15px",

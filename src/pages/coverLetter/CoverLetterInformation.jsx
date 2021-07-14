@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Card,Form,Button,TextArea } from "semantic-ui-react";
 import CoverLetterUpdateModal from "./CoverLetterUpdateModal";
 

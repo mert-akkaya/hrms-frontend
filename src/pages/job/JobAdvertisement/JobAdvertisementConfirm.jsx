@@ -21,16 +21,20 @@ export default function JobAdvertisementConfirm() {
 
   const setActiveTrue = (id) => {
     let jobAdvertisementService = new JobAdvertisementService();
-    jobAdvertisementService.setActiveTrue(id).then(alert("Success"));
-    window.location.reload();
+    jobAdvertisementService.setActiveTrue(id).then(result=>{
+      document.getElementById(id).remove();
+    });
+    
   };
 
   const deleteJobAdvertisement = (jobAdvertisement) => {
     let jobAdvertisementService = new JobAdvertisementService();
     jobAdvertisementService
       .deleteJobAdvertisement(jobAdvertisement)
-      .then(alert("Success"));
-    window.location.reload();
+      .then(result=>{
+        document.getElementById(id).remove();
+      });
+    
   };
 
   return (
@@ -54,9 +58,10 @@ export default function JobAdvertisementConfirm() {
             <Icon name="remove" /> No
           </Button>
           <Button
+          className="approve"
             color="green"
             inverted
-            onClick={() => {
+            onClick={(e) => {
               setOpen(false);
               setActiveTrue(id);
             }}
@@ -66,7 +71,7 @@ export default function JobAdvertisementConfirm() {
         </Modal.Actions>
       </Modal>
       {
-        <Table striped size="small" textAlign="center">
+        <Table className="table" striped size="small" textAlign="center">
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Employer</Table.HeaderCell>
@@ -86,7 +91,7 @@ export default function JobAdvertisementConfirm() {
           </Table.Header>
           <Table.Body>
             {filteredJobAdvertisements.map((jobAdvertisement) => (
-              <Table.Row key={jobAdvertisement.id}>
+              <Table.Row className="tableRow" id={id} key={jobAdvertisement.id}>
                 <Table.Cell>
                   {jobAdvertisement.employer?.companyName}
                 </Table.Cell>

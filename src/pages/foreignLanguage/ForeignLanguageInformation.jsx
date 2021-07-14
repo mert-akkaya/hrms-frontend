@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Input, Form, Button } from "semantic-ui-react";
+import { Card,  Form, Button } from "semantic-ui-react";
 import ForeignLanguageService from "../../services/foreignLanguageService";
 import HrmsLabel from "../../utilities/customFormControls/HrmsLabel";
 import ForeignLanguageUpdateModal from "./ForeignLanguageUpdateModal";
@@ -18,7 +18,7 @@ export default function ForeignLanguageInformation({ curriculumVitae }) {
   function deleteForeignLanguage(foreignLanguageId) {
     let foreignLanguageService = new ForeignLanguageService();
     foreignLanguageService.delete(foreignLanguageId).then((result) => {
-      window.location.reload();
+      document.getElementById(foreignLanguageId).remove();
     });
   }
   return (
@@ -37,6 +37,7 @@ export default function ForeignLanguageInformation({ curriculumVitae }) {
         </Card.Header>
         {foreignLanguages.map((foreignLanguage) => (
           <Form
+          id={foreignLanguage.id}
             key={foreignLanguage.id}
             style={{
               marginLeft: "15px",

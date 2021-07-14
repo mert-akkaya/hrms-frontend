@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
 import { Label,Dropdown, Button,Segment } from "semantic-ui-react";
 import CityService from "../services/cityService";
 import EmploymentTypeService from "../services/employmentTypeService";
-import WorkTypeService from "../services/workTypeService";
 
 export default function Sidebar({applyFilters,handleChangePageSize}) {
   const [cities, setCities] = useState([])
@@ -52,14 +50,14 @@ export default function Sidebar({applyFilters,handleChangePageSize}) {
     <div>
       
       <Segment>
-        <Label ribbon="left" size="large">Location</Label> <br/><br/>
+        <Label ribbon size="large">Location</Label> <br/><br/>
         <Dropdown fluid search selection  placeholder="Select location"
         options={cityOptions} onChange={(e,data)=>{
           handleChangeCity(e,data.value)
         }}/>
       </Segment>
       <Segment>
-        <Label ribbon="left" size="large">Employment Type</Label> <br/><br/>
+        <Label ribbon size="large">Employment Type</Label> <br/><br/>
         <Dropdown fluid search selection  placeholder="Employment Type"
         options={employmentTypeOptions} onChange={(e,data)=>{
           handleChangeEmploymentType(e,data.value)

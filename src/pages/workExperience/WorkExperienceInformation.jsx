@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Input, Form, Button } from "semantic-ui-react";
+import { Card, Form, Button } from "semantic-ui-react";
 import WorkExperienceService from "../../services/workExperienceService";
 import HrmsLabel from "../../utilities/customFormControls/HrmsLabel";
 import WorkExperienceAddModal from "./WorkExperienceAddModal";
@@ -20,7 +20,7 @@ export default function WorkExperienceInformation({ curriculumVitae }) {
   function deleteWorkExperience(workExperienceId) {
     let workExperienceService = new WorkExperienceService();
     workExperienceService.delete(workExperienceId).then((result) => {
-      window.location.reload();
+      document.getElementById(workExperienceId).remove();
     });
   }
 
@@ -39,7 +39,7 @@ export default function WorkExperienceInformation({ curriculumVitae }) {
           />
         </Card.Header>
         {workExperiences.map((workExperience) => (
-          <Form
+          <Form id={workExperience.id}
             key={workExperience.id}
             style={{
               marginLeft: "15px",

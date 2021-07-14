@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import JobAdvertisementService from "../../../services/jobAdvertisementService";
 import FavoriteService from "../../../services/favoriteService";
-import { Button, Card, Grid, Rating, Label } from "semantic-ui-react";
+import { Button, Card, Grid, Label } from "semantic-ui-react";
 import { toast } from "react-toastify";
 
 export default function JobAdvertisementDetail() {

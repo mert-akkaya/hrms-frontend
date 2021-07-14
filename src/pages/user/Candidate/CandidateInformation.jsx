@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {} from "formik";
-import { Form, Button, Card, Image, Input } from "semantic-ui-react";
-import HrmsTextInput from "../../../utilities/customFormControls/HrmsTextInput";
+import { Form, Button, Card, Image } from "semantic-ui-react";
 import HrmsLabel from "../../../utilities/customFormControls/HrmsLabel";
 import CandidateService from "../../../services/candidateService";
 import CandidateUpdateModal from "./CandidateUpdateModal";

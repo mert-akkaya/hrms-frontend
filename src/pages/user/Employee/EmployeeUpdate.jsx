@@ -4,7 +4,6 @@ import EmployeeService from "../../../services/employeeService";
 import { Button, Card, Input, Form, Message } from "semantic-ui-react";
 import HrmsLabel from "../../../utilities/customFormControls/HrmsLabel";
 import * as Yup from "yup";
-import HrmsTextInput from "../../../utilities/customFormControls/HrmsTextInput";
 
 export default function EmployeeUpdate() {
   const [employee, setEmployee] = useState({});

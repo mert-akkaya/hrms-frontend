@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Header, Icon, Image, Menu, Segment, Sidebar } from "semantic-ui-react";
+import {Menu} from "semantic-ui-react";
 
 export default function ProfileSideBar() {
   const [activeItem, setActiveItem] = useState("profile")
