@@ -4,13 +4,15 @@ import ForeignLanguageService from "../../services/foreignLanguageService";
 import HrmsLabel from "../../utilities/customFormControls/HrmsLabel";
 import ForeignLanguageUpdateModal from "./ForeignLanguageUpdateModal";
 import ForeignLanguageAddModal from "./ForeignLanguageAddModal";
+import { useParams } from "react-router-dom";
 
 export default function ForeignLanguageInformation({ curriculumVitae }) {
   const [foreignLanguages, setForeignLanguages] = useState([]);
+  let {id} = useParams();
 
   useEffect(() => {
     let foreignLanguageService = new ForeignLanguageService();
-    foreignLanguageService.getAllByCurriculumVitaeId(1).then((result) => {
+    foreignLanguageService.getAllByCurriculumVitaeId(id).then((result) => {
       setForeignLanguages(result.data.data);
     });
   }, []);

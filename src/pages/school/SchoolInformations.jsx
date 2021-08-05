@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Card, Form, Button } from "semantic-ui-react";
 import SchoolService from "../../services/schoolService";
 import HrmsLabel from "../../utilities/customFormControls/HrmsLabel";
@@ -7,10 +8,11 @@ import SchoolUpdateModal from "./SchoolUpdateModal";
 
 export default function SchoolInformations({ curriculumVitae }) {
   const [schools, setSchools] = useState([]);
-
+  let {id} = useParams();
+ console.log(curriculumVitae)
   useEffect(() => {
     let schoolService = new SchoolService();
-    schoolService.getAllByCurriculumVitae(1).then((result) => {
+    schoolService.getAllByCurriculumVitae(id).then((result) => {
       setSchools(result.data.data);
     });
   }, []);

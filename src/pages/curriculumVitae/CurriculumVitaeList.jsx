@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CurriculumVitaeService from "../../services/curriculumVitaeService";
-import { Card, Icon, Image } from "semantic-ui-react";
+import { Card, CardGroup, Grid, Icon, Image } from "semantic-ui-react";
+import { NavLink } from "react-router-dom";
 
 export default function CurriculumVitaeList() {
   const [curriculumVitaes, setCurriculumVitaes] = useState([]);
@@ -11,12 +12,15 @@ export default function CurriculumVitaeList() {
       .getCurriculumVitaes()
       .then((result) => setCurriculumVitaes(result.data.data));
   },[]);
+  
 
   return (
     <div>
+      <CardGroup>
       {curriculumVitaes.map((curriculumVitae) => (
-        <Card>
-          <Image src={curriculumVitae.photoUrl} wrapped ui={false} />
+        <Card  as={NavLink}
+        to={`/curriculumVitaeUpdate/${curriculumVitae.id}`} key={curriculumVitae.id}>
+          <Image size="small" src={curriculumVitae.photoUrl} wrapped ui={false} />
           <Card.Content>
             <Card.Header>{`${curriculumVitae.candidate.firstName} ${curriculumVitae.candidate.lastName}`}</Card.Header>
             <Card.Meta>
@@ -30,14 +34,11 @@ export default function CurriculumVitaeList() {
               <strong>Cover Letter : </strong>{curriculumVitae.coverLetter}
             </Card.Description>
           </Card.Content>
-          <Card.Content extra>
-            <a>
-              <Icon name="user" />
-              22 Friends
-            </a>
-          </Card.Content>
+         
         </Card>
-      ))}
+      ))}  
+      </CardGroup>
+       
     </div>
   );
 }

@@ -7,6 +7,7 @@ import CandidateUpdateModal from "./CandidateUpdateModal";
 
 export default function CandidateInformation({ curriculumVitae }) {
   const [candidate, setCandidate] = useState({});
+  
 
   useEffect(() => {
     let candidateService = new CandidateService();

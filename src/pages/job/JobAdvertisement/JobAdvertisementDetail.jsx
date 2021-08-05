@@ -74,9 +74,9 @@ export default function JobAdvertisementDetail() {
               <Card fluid>
                 <Card.Content>
                   <Card.Description style={{ fontSize: "15px" }}>
-                    <strong>Requirements : </strong>
-                    {jobAdvertisement.description}
+                    <strong>City : </strong> {jobAdvertisement.city?.name}
                     <br />
+                    <strong>Requirements : </strong>{jobAdvertisement.description}<br/>
                     <strong>Open position count : </strong>
                     {jobAdvertisement.countOfOpenPosition}
                     <br />
@@ -84,8 +84,6 @@ export default function JobAdvertisementDetail() {
                     $ <br />
                     <strong>Max Salary : </strong> {jobAdvertisement.maxSalary}
                     $ <br />
-                    <strong>City : </strong> {jobAdvertisement.city?.name}
-                    <br />
                     <strong>Employment type : </strong>{" "}
                     {jobAdvertisement.employmentType?.name}
                     <br />

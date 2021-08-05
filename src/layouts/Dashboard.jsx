@@ -37,7 +37,7 @@ export default function Dashboard() {
             <Route exact path="/jobAdvertisementConfirm" component={jobAdvertisementConfirm}/>
             <Route path="/curriculumVitaes" component={CurriculumVitaeList} />
             <Route path="/curriculumVitaeAdd" component={CurriculumVitaeAdd} />
-            <Route path="/curriculumVitaeUpdate" component={CurriculumVitaeUpdate} />
+            <Route path="/curriculumVitaeUpdate/:id" component={CurriculumVitaeUpdate} />
             <Route path="/employeeUpdate" component={EmployeeUpdate} />
             <Route exact path="/jobAdvertisement/:cityId/:employmentTypeId" component={JobAdvertisementList} />
             <Route path="/employerUpdate" component={EmployerUpdate} />

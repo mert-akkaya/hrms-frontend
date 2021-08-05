@@ -4,13 +4,15 @@ import { Card,Form, Button } from "semantic-ui-react";
 import HrmsLabel from "../../utilities/customFormControls/HrmsLabel";
 import AbilityUpdateModal from "./AbilityUpdateModal";
 import AbilityAddModal from "./AbilityAddModal";
+import { useParams } from "react-router-dom";
 
 export default function AbilityInformation({ curriculumVitae }) {
   const [abilities, setAbilities] = useState([]);
+  let {id} = useParams();
 
   useEffect(() => {
     let abilityService = new AbilityService();
-    abilityService.getAllByCurriculumVitaeId(1).then((result) => {
+    abilityService.getAllByCurriculumVitaeId(id).then((result) => {
       setAbilities(result.data.data);
     });
   }, []);

@@ -9,12 +9,15 @@ import WorkExperienceInformation from "../workExperience/WorkExperienceInformati
 import AbilityInformation from "../ability/AbilityInformation";
 import ForeignLanguageInformation from "../foreignLanguage/ForeignLanguageInformation";
 import CoverLetterInformation from "../coverLetter/CoverLetterInformation";
+import { useParams } from "react-router-dom";
 
 export default function CurriculumVitaeUpdate() {
   const [candidate, setCandidate] = useState({});
   const [candidateId, setCandidateId] = useState(1); // şimdilik elle veriyorum düzeltilecek
   const [curriculumVitae, setCurriculumVitae] = useState({});
   const [activeIndex, setActiveIndex] = useState(0);
+
+  let {id} = useParams();
 
   const handleClick = (e, titleProps) => {
     const { index } = titleProps;
@@ -23,13 +26,13 @@ export default function CurriculumVitaeUpdate() {
   };
   useEffect(() => {
     let candidateService = new CandidateService();
-    candidateService.getCandidateById(candidateId).then((result) => {
+    candidateService.getCandidateById(id).then((result) => {
       setCandidate(result.data.data);
     });
 
     let curriculumVitaeService = new CurriculumVitaeService();
     curriculumVitaeService
-      .getCurriculumVitaeByCandidateId(candidateId)
+      .getById(id)
       .then((result) => {
         setCurriculumVitae(result.data.data);
       });

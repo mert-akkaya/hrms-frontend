@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Card, Form, Button } from "semantic-ui-react";
 import WorkExperienceService from "../../services/workExperienceService";
 import HrmsLabel from "../../utilities/customFormControls/HrmsLabel";
@@ -7,11 +8,12 @@ import WorkExperienceUpdateModal from "./WorkExperienceUpdateModal";
 
 export default function WorkExperienceInformation({ curriculumVitae }) {
   const [workExperiences, setWorkExperiences] = useState([]);
+  let {id} = useParams();
 
   useEffect(() => {
     let workExperienceService = new WorkExperienceService();
     workExperienceService
-      .getAllByCurriculumVitaeIdAndOrderByFinishDateDesc(1)
+      .getAllByCurriculumVitaeIdAndOrderByFinishDateDesc(id)
       .then((result) => {
         setWorkExperiences(result.data.data);
       });
