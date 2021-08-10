@@ -15,7 +15,7 @@ import CurriculumVitaeUpdate from "../pages/curriculumVitae/CurriculumVitaeUpdat
 import EmployeeList from "../pages/user/Employee/EmployeeList";
 import EmployeeUpdate from "../pages/user/Employee/EmployeeUpdate";
 import EmployerUpdate from "../pages/user/Employer/EmployerUpdate";
-import Profile from "../pages/profile/Profile";
+import Profile from "../pages/profile/profileForCandidate/Profile";
 import EmployerUpdateConfirm from "../pages/user/Employer/EmployerUpdateConfirm";
 
 export default function Dashboard() {

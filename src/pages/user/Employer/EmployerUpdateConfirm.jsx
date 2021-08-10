@@ -16,7 +16,16 @@ export default function EmployerUpdateConfirm() {
     },[])
     const confirmContent=(id)=>{
         let employerContentService = new EmployerContentService();
-        employerContentService.confirmContent(id).then((result)=>{window.location.reload()});
+        employerContentService.confirmContent(id).then((result)=>{
+          document.getElementById(id).remove();
+        });
+    }
+
+    const deleteContent=(id)=>{
+       let employerContentService = new EmployerContentService();
+       employerContentService.delete(id).then((result)=>{
+         document.getElementById(id).remove();
+       });
     }
   return (
     <div>
@@ -62,7 +71,7 @@ export default function EmployerUpdateConfirm() {
           </Table.Header>
           <Table.Body>
             {updateContents.map((updateContent) => (
-              <Table.Row key={updateContent.id}>
+              <Table.Row id={id} key={updateContent.id}>
                 <Table.Cell>
                   {updateContent.employerId}
                 </Table.Cell>
@@ -83,12 +92,12 @@ export default function EmployerUpdateConfirm() {
                   <Popup
                     trigger={
                       <Button
-                        onClick={() => ""}
+                        onClick={() => {deleteContent(updateContent.id)}}
                         negative
                         icon="remove"
                       />
                     }
-                    content="Delete this job advertisement"
+                    content="Delete this request"
                     basic
                   />
                 </Table.Cell>

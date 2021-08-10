@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import {Menu} from "semantic-ui-react";
 
 export default function ProfileSideBar() {
@@ -11,9 +12,10 @@ export default function ProfileSideBar() {
     <div>
       <Menu fluid vertical tabular>
         <Menu.Item
-          name='profile'
+          name='profile' 
           active={activeItem === 'profile'}
           onClick={(e,data)=>{handleItemClick(e,data.name)}}
+          as={NavLink} to="/profile"
         >
           Profile
         </Menu.Item>
@@ -22,6 +24,7 @@ export default function ProfileSideBar() {
           name='resume'
           active={activeItem === 'resume'}
           onClick={(e,data)=>{handleItemClick(e,data.name)}}
+          as={NavLink} to="/profile/resumes"
         >
           Resumes
         </Menu.Item>
@@ -30,6 +33,7 @@ export default function ProfileSideBar() {
           name='application'
           active={activeItem === 'application'}
           onClick={(e,data)=>{handleItemClick(e,data.name)}}
+          as={NavLink} to="/profile/applications"
         >
           Aplications
         </Menu.Item>
@@ -37,6 +41,7 @@ export default function ProfileSideBar() {
           name='favorite'
           active={activeItem === 'favorite'}
           onClick={(e,data)=>{handleItemClick(e,data.name)}}
+          as={NavLink} to="/profile/favorites"
         >
           Favorites
         </Menu.Item>

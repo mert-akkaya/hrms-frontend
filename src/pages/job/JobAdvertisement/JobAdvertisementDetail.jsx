@@ -4,6 +4,8 @@ import JobAdvertisementService from "../../../services/jobAdvertisementService";
 import FavoriteService from "../../../services/favoriteService";
 import { Button, Card, Grid, Label } from "semantic-ui-react";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { addToFavorite, removeToFavorite } from "../../../store/actions/favoriteActions";
 
 export default function JobAdvertisementDetail() {
   let { id } = useParams();
@@ -11,7 +13,7 @@ export default function JobAdvertisementDetail() {
   const [jobAdvertisement, setJobAdvertisement] = useState({});
   const [favorite, setFavorite] = useState({});
   const [isFavorite, setİsFavorite] = useState(false);
-
+  const dispatch = useDispatch();
   const favoriteService = new FavoriteService();
   useEffect(() => {
     let jobAdvertisementService = new JobAdvertisementService();
@@ -38,14 +40,19 @@ export default function JobAdvertisementDetail() {
       },
     };
     if (isFavorite) {
-      favoriteService.delete(favorite);
-      setİsFavorite(false)
+       favoriteService.delete(favorite.id)
+       setİsFavorite(false)
       toast.warning("Removed from favorites")
+       dispatch(removeToFavorite(jobAdvertisement))
     } else {
-      favoriteService.add(favoriteModel);
-      setİsFavorite(true)
+       favoriteService.add(favoriteModel);
+       setİsFavorite(true)
       toast.success("Added to favorites")
+       dispatch(addToFavorite(jobAdvertisement))
     }
+    setTimeout(() => {
+      favoriteService.getByCandidateAndJobAdvertismenetId(1, id).then(result => setFavorite(result.data.data))
+  }, 200)
   };
 
   return (
@@ -55,13 +62,15 @@ export default function JobAdvertisementDetail() {
       <br />
       <span>Turkey</span>
       <Label
-      color="red"
+      className="fav"
+        color="red"
         icon={isFavorite? "heart" : "heart outline"}
         ribbon="right"
         size="huge"
         onClick={() => {
           addToFavorites(jobAdvertisement.id);
         }}
+        style={{cursor:"pointer"}}
       >
       </Label>
       <br />

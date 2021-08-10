@@ -25,4 +25,8 @@ export default class EmployerContentService{
     confirmContent(employerId){
         return axios.post("http://localhost:8080/api/employerUpdateContents/confirmContent?employerId="+employerId);
     }
+
+    delete(id){
+        return axios.post("http://localhost:8080/api/employerUpdateContents/delete?id="+id);
+    }
 }
