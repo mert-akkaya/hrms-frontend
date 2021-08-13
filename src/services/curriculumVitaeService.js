@@ -7,7 +7,7 @@ export default class CurriculumVitaeService{
     }
 
     getCurriculumVitaeByCandidateId(id){
-        return axios.get("http://localhost:8080/api/curriculumvitaes/getbycandidateid?id=1");
+        return axios.get("http://localhost:8080/api/curriculumvitaes/getbycandidateid?id="+id);
     }
 
     getById(id){
