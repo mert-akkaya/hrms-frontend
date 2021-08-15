@@ -1,13 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { Accordion, Button, Card, Form, Icon } from "semantic-ui-react";
 import HrmsLabel from "../../../utilities/customFormControls/HrmsLabel";
-import CandidateService from "../../../services/candidateService";
+import EmployerService from "../../../services/employerService";
 import * as Yup from 'yup';
 import { useFormik } from "formik";
 
 export default function ProfileInformations() {
-  const [candidate, setCandidate] = useState({});
+  const [employer, setEmployer] = useState({});
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleClick = (e, titleProps) => {
@@ -17,51 +18,39 @@ export default function ProfileInformations() {
   };
 
   useEffect(() => {
-    let candidateService = new CandidateService();
-    candidateService.getCandidateById(1).then((result) => {
-      setCandidate(result.data.data);
+    let employerService = new EmployerService();
+    employerService.getById(2).then((result) => {
+      setEmployer(result.data.data);
     });
-  }, []);
-
+  },[]);
 
   const formik = useFormik({
-    initialValues:{
-    firstName: candidate.firstName,
-    lastName: candidate.lastName,
-    email: candidate.email,
-    identityNumber: candidate.identityNumber,
-    birthYear: candidate.birthYear,
-  }
-    ,
+    initialValues: {
+      companyName: employer.companyName,
+      email: employer.email,
+      webAddress: employer.webAddress,
+      phoneNumber: employer.phoneNumber,
+    },
     validationSchema: Yup.object({
-      firstName: Yup.string().required("First name is not null"),
-      lastName: Yup.string().required("Last name is not null"),
+      companyName: Yup.string().required("Company name is not null"),
       email: Yup.string().required("Email is not null"),
-      identityNumber: Yup.string().required("Identity number is not null"),
-      birthYear: Yup.number(),
+      webAddress: Yup.string().required("Web Address is not null"),
+      phoneNumber: Yup.string().required("Phone number is not null"),
     }),
     onSubmit: (values) => {
-      let candidateModel = {
-        id: candidate.id,
-        firstName: values.firstName,
-        lastName: values.lastName,
+      let employerModel ={
+        id: employer.id,
+        companyName: values.companyName,
+        webAddress: values.webAddress,
         email: values.email,
-        identityNumber: values.identityNumber,
-        birthYear: values.birthYear,
-        password: candidate.password,
-      };
-
-      let candidateService = new CandidateService();
-      candidateService.update(candidateModel).then((result)=>{
-          window.location.reload()
-        });
+        phoneNumber: values.phoneNumber,
+        password: employer.password
+      }
+      let employerService = new EmployerService();
+      employerService.update(employerModel).then(window.location.reload());
     },
-    enableReinitialize:true
+    enableReinitialize: true,
   });
-
-  function changePassword(currentPassword,newPassword,newPasswordAgain) {
-      //todo:tamamla
-  }
 
   return (
     <div>
@@ -73,7 +62,7 @@ export default function ProfileInformations() {
             onClick={handleClick}
           >
             <Icon name="dropdown" />
-            Personal İnformations
+            Corporate İnformations
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 0}>
             <Form
@@ -86,43 +75,44 @@ export default function ProfileInformations() {
             >
               <Form.Input
                 fluid
-                name="firstName"
-                value={formik.values.firstName }
-                label={<HrmsLabel name="First Name" />}
-                onChange={(e)=>{formik.handleChange(e)}}
+                name="companyName"
+                value={formik.values.companyName}
+                label={<HrmsLabel name="Company Name" />}
+                onChange={(e) => {
+                  formik.handleChange(e);
+                }}
               />
               <Form.Input
                 fluid
-                name="lastName"
-                value={formik.values.lastName}
-                label={<HrmsLabel name="Last Name" />}
-                onChange={(e)=>{formik.handleChange(e)}}
+                name="email"
+                value={formik.values.email}
+                label={<HrmsLabel name="Email" />}
+                onChange={(e) => {
+                  formik.handleChange(e);
+                }}
               />
 
               <Form.Group widths="equal">
                 <Form.Input
                   fluid
-                  name="email"
-                  value={formik.values.email}
-                  label={<HrmsLabel name="Email" />}
-                  onChange={(e)=>{formik.handleChange(e)}}
+                  name="webAddress"
+                  value={formik.values.webAddress}
+                  label={<HrmsLabel name="Web Address" />}
+                  onChange={(e) => {
+                    formik.handleChange(e);
+                  }}
                 />
 
                 <Form.Input
                   fluid
-                  name="identityNumber"
-                  value={formik.values.identityNumber}
-                  label={<HrmsLabel name="Identity Number" />}
-                  onChange={(e)=>{formik.handleChange(e)}}
+                  name="phoneNumber"
+                  value={formik.values.phoneNumber}
+                  label={<HrmsLabel name="Phone Number" />}
+                  onChange={(e) => {
+                    formik.handleChange(e);
+                  }}
                 />
 
-                <Form.Input
-                  fluid
-                  name="birthYear"
-                  value={formik.values.birthYear}
-                  label={<HrmsLabel name="Birth Year" />}
-                  onChange={(e)=>{formik.handleChange(e)}}
-                />
               </Form.Group>
               <Button onClick={formik.handleSubmit} size="large" positive>
                 Save
@@ -151,19 +141,19 @@ export default function ProfileInformations() {
               }}
             >
               <Form.Input
-              type="password"
+                type="password"
                 fluid
                 name="currentPassword"
                 label={<HrmsLabel name="Current Password" />}
               />
               <Form.Input
-              type="password"
+                type="password"
                 fluid
                 name="newPassword"
                 label={<HrmsLabel name="New Password" />}
               />
               <Form.Input
-              type="password"
+                type="password"
                 fluid
                 name="newPasswordAgain"
                 label={<HrmsLabel name="New Password" />}

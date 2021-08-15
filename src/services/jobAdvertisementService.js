@@ -33,4 +33,13 @@ export default class JobAdvertisementService{
     getAllByIsActiveTrueAndFilter(pageNo,pageSize,filter){
         return axios.post(`http://localhost:8080/api/jobadvertisements/getAllByIsActiveTrueAndFilter?pageNo=${pageNo}&pageSize=${pageSize}`,filter)
     }
+
+    getAllByIsActiveTrueAndEmployerId(id){
+        return axios.get("http://localhost:8080/api/jobadvertisements/getByIsActiveTrueAndEmployerId?id="+id);
+    }
+
+    getAllByIsActiveFalseAndEmployerId(id){
+        return axios.get("http://localhost:8080/api/jobadvertisements/getByIsActiveFalseAndEmployerId?id="+id);
+    }
+
 }

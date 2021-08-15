@@ -25,11 +25,10 @@ export default function ProfileResume() {
     }
   };
 
-  console.log(curriculumVitaes);
   return (
     <div>
       {curriculumVitaes.map((curriculumVitae) => (
-        <Card fluid>
+        <Card key={curriculumVitae.id} fluid>
         <Card.Group
           onMouseEnter={(e) => setCurrentResume(curriculumVitae)}
           as={NavLink}

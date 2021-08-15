@@ -30,7 +30,7 @@ export default function ProfileFavorite() {
   return (
     <div>
       {favorites.map((favorite) => (
-        <Card fluid>
+        <Card key={favorite.id} fluid>
           <Card.Group
             onMouseEnter={(e) => setCurrentJobAdvertisement(favorite)}
             as={NavLink}

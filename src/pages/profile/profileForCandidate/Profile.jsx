@@ -16,10 +16,10 @@ export default function Profile() {
                         <ProfileSideBar/>
                     </Grid.Column>
                     <Grid.Column width={13}>
-                        <Route exact path="/profile" component={ProfileInformations}/>
-                        <Route exact path="/profile/resumes" component={ProfileResume} />
-                        <Route exact path="/profile/applications" component={ProfileApplication} />
-                        <Route exact path="/profile/favorites" component={ProfileFavorite} />
+                        <Route exact path="/profile/candidate" component={ProfileInformations}/>
+                        <Route exact path="/profile/candidate/resumes" component={ProfileResume} />
+                        <Route exact path="/profile/candidate/applications" component={ProfileApplication} />
+                        <Route exact path="/profile/candidate/favorites" component={ProfileFavorite} />
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

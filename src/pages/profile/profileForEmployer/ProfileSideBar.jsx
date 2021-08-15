@@ -15,7 +15,7 @@ export default function ProfileSideBar() {
           name='profile' 
           active={activeItem === 'profile'}
           onClick={(e,data)=>{handleItemClick(e,data.name)}}
-          as={NavLink} to="/profile/candidate"
+          as={NavLink} to="/profile/employer"
         >
           Profile
         </Menu.Item>
@@ -24,26 +24,18 @@ export default function ProfileSideBar() {
           name='resume'
           active={activeItem === 'resume'}
           onClick={(e,data)=>{handleItemClick(e,data.name)}}
-          as={NavLink} to="/profile/candidate/resumes"
+          as={NavLink} to="/profile/employer/active-advertisements"
         >
-          Resumes
+          Active Advertisements
         </Menu.Item>
 
         <Menu.Item
           name='application'
           active={activeItem === 'application'}
           onClick={(e,data)=>{handleItemClick(e,data.name)}}
-          as={NavLink} to="/profile/candidate/applications"
+          as={NavLink} to="/profile/employer/pending-advertisements"
         >
-          Aplications
-        </Menu.Item>
-        <Menu.Item
-          name='favorite'
-          active={activeItem === 'favorite'}
-          onClick={(e,data)=>{handleItemClick(e,data.name)}}
-          as={NavLink} to="/profile/candidate/favorites"
-        >
-          Favorites
+          Pending Advertisements
         </Menu.Item>
       </Menu>
     </div>
