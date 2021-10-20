@@ -35,7 +35,7 @@ export default function Navi() {
               </Dropdown.Menu>
             </Dropdown> */}  
 
-            {/* <Menu.Item>
+            {/* <Menu.Item>       
               <Button.Group>
                 <Button primary>Sign Up</Button>
                 <Button.Or />
