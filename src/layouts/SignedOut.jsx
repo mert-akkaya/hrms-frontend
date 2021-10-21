@@ -8,9 +8,13 @@ export default function SignedOut({signIn}) {
       <Menu.Item>
         <Button.Group>
           <Button onClick={signIn} primary>Login</Button>
-          <Button.Or />
+          
           <Button as={NavLink} to="/register/registerForCandidate" positive style={{ marginLeft: "0.5em" }}>
-            Register
+            Candidate Registration 
+          </Button>
+          <Button.Or />
+          <Button as={NavLink} to="/register/registerForEmployer" positive style={{ marginLeft: "0.5em" }}>
+            Employer Registration
           </Button>
         </Button.Group>
       </Menu.Item>

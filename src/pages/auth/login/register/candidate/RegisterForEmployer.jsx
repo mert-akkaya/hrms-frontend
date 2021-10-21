@@ -5,41 +5,38 @@ import { useFormik } from "formik";
 import AuthService from '../../../../../services/authService';
 import { useHistory } from 'react-router';
 
-export default function RegisterForCandidate() {
+export default function RegisterForEmployer() {
 
     const history = useHistory();
 
     const formik = useFormik({
         initialValues: {
-            firstName: "",
-            lastName: "",
+            companyName: "",
+            webAddress: "",
             email: "",
-            identityNumber: "",
-            birthYear: "",
+            phoneNumber: "",
             password: "",
             passwordConfirm: ""
         },
         validationSchema: Yup.object({
-            firstName: Yup.string().required("First name is not null"),
-            lastName: Yup.string().required("Last name is not null"),
+            companyName: Yup.string().required("Company name is not null"),
+            webAddress: Yup.string().required("Web Address  is not null"),
             email: Yup.string().required("Email is not null").email(),
-            identityNumber: Yup.string().required("Identity number is not null").length(11),
-            birthYear: Yup.number().required("Birth year is not null").min(4),
+            phoneNumber: Yup.string().required("Phone number is not null").length(10),
             password : Yup.string().required("Password is not null").min(4,"Password must be more than 4 character"),
             passwordConfirm: Yup.string().required("Password confirm is not null").min(4,"Password confirm must be more than 4 character")
         }),
         onSubmit: (values) => {
-            let registerForCandidateModel = {
-                firstName: formik.values.firstName,
-                lastName: formik.values.lastName,
+            let registerForEmployerModel = {
+                companyName: formik.values.companyName,
+                webAddress: formik.values.webAddress,
                 email: formik.values.email,
-                identityNumber: formik.values.identityNumber.toString(),
-                birthYear: formik.values.birthYear,
+                phoneNumber: formik.values.phoneNumber,
                 password: formik.values.password,
                 passwordConfirm: formik.values.passwordConfirm
             }
             let authService = new AuthService();
-            authService.registerForCandidate(registerForCandidateModel).then((result) => {
+            authService.registerForEmployer(registerForEmployerModel).then((result) => {
                 history.push("/");
             })
         },
@@ -50,36 +47,31 @@ export default function RegisterForCandidate() {
             <Grid textAlign='center' style={{ height: '50vh' }} verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 750 }}>
                     <Header as='h2' color='teal' textAlign='center'>
-                       Candidate Register Page
+                       Employer Register Page
                     </Header>
                     <Form size='large'>
                         <Segment stacked>
                             <Form.Group widths="equal">
-                                <Form.Input name="firstName" fluid icon='user' iconPosition='left' placeholder='First Name' onChange={(e) => { formik.handleChange(e) }} />
+                                <Form.Input name="companyName" fluid icon='world' iconPosition='left' placeholder='Company Name' onChange={(e) => { formik.handleChange(e) }} />
                            <br/>   
-                             {formik.errors.firstName && formik.touched.firstName ? (
-                    <Label  basic pointing="left" color="red">{formik.errors.firstName}</Label>
+                             {formik.errors.companyName && formik.touched.companyName ? (
+                    <Label  basic pointing="left" color="red">{formik.errors.companyName}</Label>
               ) : null}
               
-                                <Form.Input name="lastName" fluid icon='user' iconPosition='left' placeholder='Last Name' onChange={(e) => { formik.handleChange(e) }} />
-                                {formik.errors.lastName && formik.touched.lastName ? (
-                    <Label  basic pointing="left" color="red">{formik.errors.lastName}</Label>
+                                <Form.Input name="webAddress" fluid icon='internet explorer' iconPosition='left' placeholder='Web Address' onChange={(e) => { formik.handleChange(e) }} />
+                                {formik.errors.webAddress && formik.touched.webAddress ? (
+                    <Label  basic pointing="left" color="red">{formik.errors.webAddress}</Label>
               ) : null}
                             </Form.Group>
                             <Form.Input name="email" fluid icon='mail' iconPosition='left' placeholder='E mail' onChange={(e) => { formik.handleChange(e) }} />
                             {formik.errors.email && formik.touched.email ? (
                     <Label  basic pointing color="red">{formik.errors.email}</Label>
               ) : null}
-                            <Form.Group widths="equal">
-                                <Form.Input type="number" name="identityNumber" fluid icon='unhide' iconPosition='left' placeholder='Identity Number' onChange={(e) => { formik.handleChange(e) }} />
-                                {formik.errors.identityNumber && formik.touched.identityNumber ? (
-                    <Label  basic pointing="left" color="red">{formik.errors.identityNumber}</Label>
+                            
+                                <Form.Input focus="Don't put zero at the beginning please" type="number" name="phoneNumber" fluid icon='phone' iconPosition='left' placeholder='Phone Number' onChange={(e) => { formik.handleChange(e) }} />
+                                {formik.errors.phoneNumber && formik.touched.phoneNumber ? (
+                    <Label  basic pointing="left" color="red">{formik.errors.phoneNumber}</Label>
               ) : null}
-                                <Form.Input type="number" name="birthYear" fluid icon='birthday cake' iconPosition='left' placeholder='Birth Year' onChange={(e) => { formik.handleChange(e) }} />
-                                {formik.errors.birthYear && formik.touched.birthYear ? (
-                    <Label  basic pointing="left" color="red">{formik.errors.birthYear}</Label>
-              ) : null}
-                            </Form.Group>
                             <Form.Input
                                 name="password"
                                 fluid

@@ -19,6 +19,7 @@ import Profile from "../pages/profile/profileForCandidate/Profile";
 import EmployerUpdateConfirm from "../pages/user/Employer/EmployerUpdateConfirm";
 import ProfileEmployer from "../pages/profile/profileForEmployer/ProfileEmployer";
 import RegisterForCandidate from "../pages/auth/login/register/candidate/RegisterForCandidate";
+import RegisterForEmployer from "../pages/auth/login/register/candidate/RegisterForEmployer";
 
 export default function Dashboard() {
   return (
@@ -47,6 +48,7 @@ export default function Dashboard() {
             <Route path="/profile/employer" component={ProfileEmployer}/>
             <Route path="/employerUpdateConfirm" component={EmployerUpdateConfirm} />
             <Route path="/register/registerForCandidate" component={RegisterForCandidate} />
+            <Route path="/register/registerForEmployer" component={RegisterForEmployer} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
